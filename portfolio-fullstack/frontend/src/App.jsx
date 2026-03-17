@@ -1,75 +1,38 @@
 import { Routes, Route } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 
-// ── Public pages ───────────────────────────────────────────────
-import Home from './pages/Home';
-import Projects from './pages/Projects';
-import ProjectDetail from './pages/ProjectDetail';
+// ── Lazy load pages ───────────────────────────────────────
+const Home = lazy(() => import('./pages/Home'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const AdminProjectForm = lazy(() => import('./pages/AdminProjectForm'));
 
-// ── Admin pages ────────────────────────────────────────────────
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
-import AdminProjectForm from './pages/AdminProjectForm';
+// ── Page loader spinner (pixel-themed) ────────────────────
+const PageLoader = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '50vh', gap: '16px' }}>
+    <div className="pixel-spinner" />
+    <span style={{ fontFamily: '"Fira Code", monospace', fontSize: '12px', color: 'var(--text-dim)', letterSpacing: '1px' }}>
+      // LOADING...
+    </span>
+  </div>
+);
 
 function App() {
   return (
-    <Routes>
-      {/* ── Public routes (wrapped in shared Layout) ── */}
-      <Route
-        path="/"
-        element={
-          <Layout>
-            <Home />
-          </Layout>
-        }
-      />
-      <Route
-        path="/projects"
-        element={
-          <Layout>
-            <Projects />
-          </Layout>
-        }
-      />
-      <Route
-        path="/projects/:id"
-        element={
-          <Layout>
-            <ProjectDetail />
-          </Layout>
-        }
-      />
+    <Suspense fallback={<PageLoader />}>
+      <Routes>
+        {/* ── Public single-page portfolio ──────────────── */}
+        <Route path="/" element={<Layout><Home /></Layout>} />
 
-      {/* ── Admin login — no Layout (full-page design) ── */}
-      <Route path="/admin/login" element={<AdminLogin />} />
-
-      {/* ── Protected admin routes ── */}
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <AdminDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/projects/new"
-        element={
-          <ProtectedRoute>
-            <AdminProjectForm />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/admin/projects/:id/edit"
-        element={
-          <ProtectedRoute>
-            <AdminProjectForm />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
+        {/* ── Admin routes (hidden from public nav) ─────── */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/admin/projects/new" element={<ProtectedRoute><AdminProjectForm /></ProtectedRoute>} />
+        <Route path="/admin/projects/:id/edit" element={<ProtectedRoute><AdminProjectForm /></ProtectedRoute>} />
+      </Routes>
+    </Suspense>
   );
 }
 
