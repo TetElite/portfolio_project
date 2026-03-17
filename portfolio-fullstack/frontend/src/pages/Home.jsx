@@ -6,10 +6,9 @@ import toast from 'react-hot-toast';
 // ─── Typing Animation Hook ──────────────────────────────
 const PHRASES = [
   'Full-Stack Developer',
-  'Problem Solver',
-  'Code Craftsman',
-  'UI/UX Enthusiast',
-  'Open Source Contributor',
+  'Mobile Developer',
+  'Game Dev (sometimes)',
+  'Still Compiling...',
 ];
 
 function useTyping(phrases) {
@@ -163,7 +162,7 @@ function HeroSection() {
       <div style={{ position: 'relative', zIndex: 2, maxWidth: '760px', width: '100%', textAlign: 'center' }}>
         {/* Status badge */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '28px', ...fadeIn(0) }}>
-          <div className="status-badge"><div className="status-dot" />Available for work · Open to opportunities</div>
+          <div className="status-badge"><div className="status-dot" style={{ backgroundColor: '#4ade80' }} />Actively looking for an internship</div>
         </div>
 
         {/* Greeting */}
@@ -173,7 +172,7 @@ function HeroSection() {
 
         {/* Name */}
         <h1 className="glow-cyan" style={{ fontFamily: '"Press Start 2P", cursive', fontSize: 'clamp(22px,5vw,50px)', letterSpacing: '4px', lineHeight: 1.3, marginBottom: '24px', ...fadeIn(0.2) }}>
-          [YOUR NAME]
+          Tet Elite
         </h1>
 
         {/* Typing */}
@@ -185,7 +184,8 @@ function HeroSection() {
 
         {/* Description */}
         <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(14px,1.5vw,16px)', color: 'var(--text-dim)', maxWidth: '520px', margin: '0 auto 36px', lineHeight: 1.85, ...fadeIn(0.4) }}>
-          I build <span style={{ color: 'var(--cyan)' }}>scalable</span>, <span style={{ color: 'var(--cyan)' }}>performant</span>, and <span style={{ color: 'var(--cyan)' }}>beautiful</span> digital experiences — from pixel-perfect frontends to battle-tested backends.
+          &quot;I build things and figure stuff out.&quot;<br />
+          Full-Stack Developer · Year 3 @ CADT, Cambodia 🇰🇭
         </p>
 
         {/* CTAs */}
@@ -197,9 +197,9 @@ function HeroSection() {
           <a href="/resume.pdf" download className="btn-pixel-ghost">💾 Download Resume</a>
         </div>
 
-        {/* Quick stats */}
+        {/* Quick stats — summarized from what's below */}
         <div style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap', ...fadeIn(0.6) }}>
-          {[['5+', 'Years Coding'], ['20+', 'Projects Shipped'], ['∞', '☕ Coffee']].map(([val, label]) => (
+          {[['∞', '☕ Coffee'], ['9999', '🐛 Bugs Fixed'], ['1', '🎮 Games Built']].map(([val, label]) => (
             <div key={label} style={{ fontFamily: '"Fira Code", monospace', fontSize: '12px', color: 'var(--text-dim)' }}>
               <span style={{ color: 'var(--cyan)' }}>{val}</span> {label}
             </div>
@@ -222,9 +222,12 @@ function HeroSection() {
 function AboutSection() {
   const STATS = [
     { icon: '☕', label: 'Coffee Consumed', value: '∞' },
-    { icon: '🐛', label: 'Bugs Fixed', value: '9999+' },
-    { icon: '🚀', label: 'Projects Shipped', value: '20+' },
-    { icon: '⌨️', label: 'Lines of Code', value: '100K+' },
+    { icon: '🐛', label: 'Bugs Fixed', value: '9999' },
+    { icon: '🎮', label: 'Games Built', value: '1' },
+    { icon: '📱', label: 'Apps Shipped', value: '2' },
+    { icon: '🌍', label: 'Languages Spoken', value: '3' },
+    { icon: '🚲', label: 'Volunteer Events', value: '3' },
+    { icon: '🎤', label: 'Concerts Worked', value: '1' },
   ];
 
   return (
@@ -239,7 +242,7 @@ function AboutSection() {
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
             {/* Avatar frame */}
             <div style={{
-              width: '220px', height: '220px',
+              width: '300px', height: '300px',
               border: '3px solid var(--cyan)',
               boxShadow: '0 0 0 2px var(--bg), 0 0 0 5px rgba(0,245,255,0.25), 0 0 40px rgba(0,245,255,0.15)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -249,7 +252,11 @@ function AboutSection() {
             }}>
               {/* Grid overlay */}
               <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-              <span style={{ fontFamily: '"Press Start 2P", cursive', fontSize: '56px', position: 'relative', zIndex: 1 }}>👨‍💻</span>
+              <img
+                src="/photos/Myself.jpg"
+                alt="Tet Elite Profile"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'relative', zIndex: 1 }}
+              />
             </div>
 
             {/* RPG name badge */}
@@ -264,7 +271,7 @@ function AboutSection() {
               letterSpacing: '1px',
               textShadow: '0 0 8px rgba(0,245,255,0.5)',
             }}>
-              ⚔ LEVEL 99 DEV ⚔
+              ⚔ [ LEVEL 99 — STILL GRINDING ] ⚔
             </div>
           </div>
         </RevealSection>
@@ -277,13 +284,13 @@ function AboutSection() {
             </div>
 
             <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: 'var(--text)', lineHeight: 1.85 }}>
-              I&apos;m a <span style={{ color: 'var(--cyan)' }}>Full-Stack Developer</span> with a passion for building meaningful products from the ground up. I specialize in the <span style={{ color: 'var(--cyan)' }}>MERN stack</span> and love crafting experiences that are fast, accessible, and delightful to use.
+              Hey, I&apos;m <span style={{ color: 'var(--cyan)' }}>Tet Elite</span> — a Year 3 CS student at CADT, Cambodia.
             </p>
             <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: 'var(--text-dim)', lineHeight: 1.85 }}>
-              When I&apos;m not pushing commits, you&apos;ll find me exploring new frameworks, contributing to open source, or sipping coffee while debugging something that <em>&quot;should've worked&quot;</em>.
+              I&apos;m a generalist dev which means I&apos;ve touched everything from low-level C/C++ to Flutter apps, Unity games, and full-stack web dev. Not fully specialized yet — and honestly, proud of it.
             </p>
-            <p style={{ fontFamily: '"Fira Code", monospace', fontSize: '12px', color: 'var(--text-dim)' }}>
-              📍 [Your City, Country] &nbsp;·&nbsp; 🎓 [Your University] &nbsp;·&nbsp; 💼 [Current Role]
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '15px', color: 'var(--text-dim)', lineHeight: 1.85 }}>
+              I learn fast, I ship things, and I&apos;m not afraid to figure stuff out when I&apos;m stuck (Stack Overflow and I are very close). Currently levelling up in full-stack web dev and Flutter while hunting for an internship to grow and actually contribute somewhere real.
             </p>
 
             {/* Stat badges */}
@@ -309,6 +316,10 @@ function AboutSection() {
                 </div>
               ))}
             </div>
+            {/* Specific language stat with list style */}
+            <div style={{ fontFamily: '"Fira Code", monospace', fontSize: '10px', color: 'var(--text-dim)', marginTop: '4px' }}>
+              🌍 Languages: Khmer, English, JavaScript (barely)
+            </div>
           </div>
         </RevealSection>
       </div>
@@ -324,30 +335,49 @@ const SKILL_GROUPS = [
     category: 'Frontend',
     icon: '🖥',
     skills: [
-      { name: 'React', xp: 90, icon: '⚛' },
-      { name: 'HTML / CSS', xp: 95, icon: '🎨' },
-      { name: 'JavaScript', xp: 88, icon: '𝐉𝐒' },
-      { name: 'Tailwind', xp: 82, icon: '💨' },
+      { name: 'HTML', xp: 80, icon: '/photos/html.png' },
+      { name: 'CSS', xp: 80, icon: '/photos/css.png' },
+      { name: 'React', xp: 70, icon: '/photos/react.png' },
+      { name: 'Tailwind CSS', xp: 70, icon: '/photos/tailwind.png' },
     ],
   },
   {
     category: 'Backend',
     icon: '⚙',
     skills: [
-      { name: 'Node.js', xp: 85, icon: '🟢' },
-      { name: 'Express', xp: 83, icon: '🚂' },
-      { name: 'MongoDB', xp: 80, icon: '🍃' },
-      { name: 'REST APIs', xp: 87, icon: '🔌' },
+      { name: 'Node.js', xp: 70, icon: '/photos/node.jpg' },
+      { name: 'Express', xp: 70, icon: '/photos/express.png' },
+      { name: 'SQL', xp: 60, icon: '/photos/pngimg.com - mysql_PNG9.png' },
+      { name: 'MongoDB', xp: 60, icon: '/photos/mongodb-atlas-google-cloud-partnership-nosql-databases-integrations-2.jpg' },
     ],
   },
   {
-    category: 'Tools',
-    icon: '🛠',
+    category: 'Mobile & Game',
+    icon: '🎮',
     skills: [
-      { name: 'Git', xp: 90, icon: '🌿' },
-      { name: 'Docker', xp: 70, icon: '🐳' },
-      { name: 'VS Code', xp: 95, icon: '💙' },
-      { name: 'Postman', xp: 85, icon: '📮' },
+      { name: 'Flutter', xp: 80, icon: '/photos/flutter-logo-sharing.png' },
+      { name: 'Unity (C#)', xp: 70, icon: '/photos/unity.png' },
+      { name: 'Lua / PICO-8', xp: 50, icon: '/photos/lua.png' },
+    ],
+  },
+  {
+    category: 'Languages',
+    icon: '💻',
+    skills: [
+      { name: 'C / C++', xp: 80, icon: '/photos/ISO_C++_Logo.svg.png' },
+      { name: 'Python', xp: 70, icon: '/photos/pythoned.png' },
+      { name: 'JavaScript', xp: 70, icon: '/photos/javascript.png' },
+      { name: 'Java OOP', xp: 60, icon: '/photos/java.png' },
+      { name: 'C#', xp: 70, icon: '/photos/csharp-logo-265a149e.svg' },
+    ],
+  },
+  {
+    category: 'Design & Tools',
+    icon: '⚒',
+    skills: [
+      { name: 'Figma', xp: 70, icon: '/photos/Figma.png' },
+      { name: 'Git / GitHub', xp: 80, icon: '/photos/git.png' },
+      { name: 'Canva', xp: 60, icon: '/photos/canva.png' },
     ],
   },
 ];
@@ -380,10 +410,20 @@ function SkillCard({ skill, groupVisible }) {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <span style={{ fontSize: '18px' }}>{skill.icon}</span>
-        <span style={{ fontFamily: '"Fira Code", monospace', fontSize: '13px', color: hovered ? 'var(--cyan)' : 'var(--text)', transition: 'color 0.25s ease' }}>
-          {skill.name}
-        </span>
+        <img
+          src={skill.icon.startsWith('/') ? skill.icon : undefined}
+          style={{ width: '20px', height: '20px', objectFit: 'contain' }}
+          alt=""
+          onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+        />
+        <span style={{ fontSize: '18px', display: skill.icon.startsWith('/') ? 'none' : 'block' }}>{skill.icon}</span>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <span style={{ fontFamily: '"Fira Code", monospace', fontSize: '13px', color: hovered ? 'var(--cyan)' : 'var(--text)', transition: 'color 0.25s ease' }}>
+            {skill.name}
+          </span>
+          {skill.name === 'Lua / PICO-8' && <span style={{ fontSize: '9px', color: '#fb923c' }}>[🟧 Exploring]</span>}
+          {skill.name === 'Figma' && <span style={{ fontSize: '9px', color: 'var(--text-dim)' }}>[Self-taught]</span>}
+        </div>
         <span style={{ marginLeft: 'auto', fontFamily: '"Press Start 2P", cursive', fontSize: '8px', color: 'var(--cyan-dim)' }}>
           {hovered ? '100' : skill.xp}%
         </span>
@@ -400,7 +440,7 @@ function SkillsSection() {
     <section id="skills" style={{ padding: '100px 24px', background: 'rgba(0,245,255,0.01)' }}>
       <div style={{ maxWidth: '1152px', margin: '0 auto' }}>
         <RevealSection>
-          <SectionHeader tag="[ SKILL TREE ]" sub="// Hover a card to MAX the XP bar" />
+          <SectionHeader tag="[ SKILL TREE ]" sub="// My current arsenal of technologies" />
         </RevealSection>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px' }}>
@@ -430,23 +470,111 @@ function SkillsSection() {
 }
 
 // ══════════════════════════════════════════════════════════
-//  SECTION 4 — PROJECTS
+//  SECTION 4 — VOLUNTEERING (SIDE QUESTS)
+// ══════════════════════════════════════════════════════════
+const SIDE_QUESTS = [
+  {
+    id: 1,
+    event: 'Pedal for the Planet',
+    org: 'Team 2',
+    date: 'November 30, 2025',
+    role: 'Risk Coordinator',
+    badge: '🚲 [ QUEST COMPLETE ]',
+    desc: 'Managed broken bicycle transportation logistics during the event. Coordinated with a truck team to safely collect and transport damaged bicycles. The planet was saved. The bicycles... mostly.',
+    icon: '🚲',
+    image: '/photos/RideBike.jpg'
+  },
+  {
+    id: 2,
+    event: 'Ganzberg Concert feat. TREASURE',
+    org: 'BookMe+',
+    date: 'February 28, 2026',
+    role: 'Crowd Coordinator',
+    badge: '🎤 [ QUEST COMPLETE ]',
+    desc: 'Supported crowd management featuring TREASURE from Korea. Helped lost attendees, organized flow, and kept the crowd safe. Basically a human GPS with a walkie-talkie vibe.',
+    icon: '🎤',
+    image: '/photos/bookme.jpg'
+  },
+  {
+    id: 3,
+    event: 'Kids & Families Fair',
+    org: 'Team 2',
+    date: 'March 7–8, 2026',
+    role: 'Sales & Health Outreach',
+    badge: '👨‍👩‍👧 [ QUEST COMPLETE ]',
+    desc: 'Assisted with sales of cough medicine and offered health check-ups to families with children. Talked to a lot of parents, helped kids, and sold a respectable amount of syrup.',
+    icon: '👨‍👩‍👧',
+    image: '/photos/Wood.jpg'
+  },
+];
+
+function VolunteeringSection() {
+  return (
+    <section id="volunteering" style={{ padding: '100px 24px', maxWidth: '1152px', margin: '0 auto' }}>
+      <RevealSection>
+        <SectionHeader tag="[ SIDE QUESTS COMPLETED ]" sub="// Evidence of my life outside of VS Code" />
+      </RevealSection>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+        {SIDE_QUESTS.map((quest, i) => (
+          <RevealSection key={quest.id} delay={i * 0.1}>
+            <div style={{
+              background: 'var(--bg-card)',
+              border: '2px solid rgba(0,245,255,0.12)',
+              padding: '0',
+              display: 'flex', flexDirection: 'column',
+              position: 'relative', overflow: 'hidden'
+            }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--cyan)'; e.currentTarget.style.boxShadow = '0 0 20px rgba(0,245,255,0.1)'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(0,245,255,0.12)'; e.currentTarget.style.boxShadow = 'none'; }}
+            >
+              <div style={{ height: '180px', overflow: 'hidden', borderBottom: '2px solid rgba(0,245,255,0.12)' }}>
+                <img src={quest.image} alt={quest.event} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8, transition: 'all 0.4s ease' }} onMouseEnter={e => e.target.style.opacity = 1} onMouseLeave={e => e.target.style.opacity = 0.8} />
+              </div>
+              <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ fontSize: '32px', opacity: 0.08, position: 'absolute', top: '190px', right: '10px' }}>{quest.icon}</div>
+
+                <div>
+                  <div style={{ fontFamily: '"Press Start 2P", cursive', fontSize: '9px', color: 'var(--cyan)', marginBottom: '8px' }}>{quest.badge}</div>
+                  <h3 style={{ fontFamily: '"Fira Code", monospace', fontSize: '15px', color: 'var(--text)', margin: 0 }}>{quest.event}</h3>
+                  <p style={{ fontFamily: '"Fira Code", monospace', fontSize: '11px', color: 'var(--text-dim)', marginTop: '4px' }}>{quest.role} · {quest.org}</p>
+                </div>
+
+                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: 'var(--text-dim)', lineHeight: 1.7, margin: 0 }}>{quest.desc}</p>
+
+              </div>
+              <div style={{ padding: '0 24px 24px', fontFamily: '"Fira Code", monospace', fontSize: '10px', color: 'var(--cyan-dim)', marginTop: 'auto' }}>
+                // Date: {quest.date}
+              </div>
+            </div>
+          </RevealSection>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ══════════════════════════════════════════════════════════
+//  SECTION 5 — PROJECTS
 // ══════════════════════════════════════════════════════════
 const PLACEHOLDER_PROJECTS = [
   {
-    _id: 'p1', title: '[Project Alpha]',
-    description: 'A full-stack web app built with React and Node.js. Features real-time updates, authentication, and a clean dark dashboard.',
-    techStack: ['React', 'Node.js', 'MongoDB', 'Socket.IO'], liveUrl: '#', repoUrl: '#',
+    _id: 'p1', title: 'MahopFlex',
+    type: 'Mobile App', role: 'Mobile Developer', period: 'Dec 2025 – Jan 2026',
+    description: 'An offline food recipe finder app built with Flutter and SQLite. I handled the backend logic, database design, and data modeling. Works without internet. No WiFi? No problem.',
+    techStack: ['Flutter', 'SQLite', 'Offline Database'], liveUrl: '', repoUrl: 'https://github.com/Tsn168/Flutter_FInal_Project',
   },
   {
-    _id: 'p2', title: '[Project Beta]',
-    description: 'REST API powering a mobile-first e-commerce platform with JWT auth, image uploads, and Stripe payments.',
-    techStack: ['Express', 'PostgreSQL', 'Docker', 'Stripe'], liveUrl: '#', repoUrl: '#',
+    _id: 'p2', title: 'Survivalist Sorcerer',
+    type: 'Unity Game (C#)', role: 'Game Developer', period: 'Nov – Dec 2025',
+    description: 'A survival game where you fight off enemy waves as a sorcerer. I built the enemy wave spawning system, wave management logic, loading screen, and credit screen.',
+    techStack: ['Unity', 'C#', 'Wave System'], liveUrl: '', repoUrl: 'https://github.com/PhaySometh/SurvivalistSorcerer-TheMeshEscape',
   },
   {
-    _id: 'p3', title: '[Project Gamma]',
-    description: 'CLI tool that auto-generates boilerplate code for microservices. Saved 40+ hours across projects.',
-    techStack: ['Node.js', 'TypeScript', 'Commander.js'], liveUrl: '#', repoUrl: '#',
+    _id: 'p3', title: 'This Portfolio',
+    type: 'Full-Stack Web App', role: 'Full-Stack Developer', period: '2025 – Present',
+    description: 'A production-ready portfolio with a custom CMS to manage projects, JWT authentication, and a React frontend. Very meta. Very full-stack.',
+    techStack: ['MongoDB', 'Express', 'React', 'Node.js', 'JWT', 'Tailwind'], liveUrl: '', repoUrl: 'https://github.com/TetElite/portfolio_project',
   },
 ];
 
@@ -475,13 +603,16 @@ function ProjectCard({ project }) {
         position: 'relative', overflow: 'hidden',
       }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(0,245,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.04) 1px,transparent 1px)', backgroundSize: '20px 20px' }} />
-        <span style={{ fontFamily: '"Fira Code", monospace', fontSize: '10px', color: 'rgba(0,245,255,0.3)', letterSpacing: '2px', position: 'relative', zIndex: 1 }}>[ PROJECT SCREENSHOT ]</span>
+        <span style={{ fontFamily: '"Fira Code", monospace', fontSize: '10px', color: 'rgba(0,245,255,0.3)', letterSpacing: '2px', position: 'relative', zIndex: 1 }}>[ {project.title.toUpperCase()} ]</span>
       </div>
 
       <div style={{ padding: '22px', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
         <h3 style={{ fontFamily: '"Press Start 2P", cursive', fontSize: '10px', color: 'var(--cyan)', lineHeight: 1.6, margin: 0 }}>
           {project.title}
         </h3>
+        <p style={{ fontFamily: '"Fira Code", monospace', fontSize: '11px', color: 'var(--cyan-dim)', margin: 0 }}>
+          {project.role} · {project.period}
+        </p>
         <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: 'var(--text-dim)', lineHeight: 1.7, flex: 1, margin: 0 }}>
           {project.description}
         </p>
@@ -489,11 +620,9 @@ function ProjectCard({ project }) {
           {(project.techStack || []).map(t => <span key={t} className="tech-tag">{t}</span>)}
         </div>
         <div style={{ display: 'flex', gap: '10px', marginTop: '6px', flexWrap: 'wrap' }}>
-          {project.liveUrl && (
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-pixel-sm" aria-label={`Live demo of ${project.title}`}>
-              <span>▶ Live Demo</span>
-            </a>
-          )}
+          <button className="btn-pixel-sm" style={{ opacity: 0.6, cursor: 'not-allowed' }}>
+            <span>[Coming Soon]</span>
+          </button>
           {project.repoUrl && (
             <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="btn-pixel-ghost" style={{ fontFamily: '"Press Start 2P", cursive', fontSize: '8px', padding: '10px 16px' }} aria-label={`View code of ${project.title}`}>
               {'</> Code'}
@@ -511,7 +640,10 @@ function ProjectsSection() {
 
   useEffect(() => {
     projectService.getProjects()
-      .then(data => setProjects(data?.length ? data : PLACEHOLDER_PROJECTS))
+      .then(data => {
+        // If DB is empty, use the placeholders with real content
+        setProjects(data?.length ? data : PLACEHOLDER_PROJECTS);
+      })
       .catch(() => setProjects(PLACEHOLDER_PROJECTS))
       .finally(() => setLoading(false));
   }, []);
@@ -519,7 +651,7 @@ function ProjectsSection() {
   return (
     <section id="projects" style={{ padding: '100px 24px', maxWidth: '1152px', margin: '0 auto' }}>
       <RevealSection>
-        <SectionHeader tag="[ QUEST LOG ]" sub="// Select a quest to view details" />
+        <SectionHeader tag="[ QUEST LOG ]" sub="// Documenting my journey through code" />
       </RevealSection>
 
       {loading ? (
@@ -541,13 +673,12 @@ function ProjectsSection() {
 }
 
 // ══════════════════════════════════════════════════════════
-//  SECTION 5 — CONTACT
+//  SECTION 6 — CONTACT
 // ══════════════════════════════════════════════════════════
 const SOCIALS = [
-  { href: 'https://github.com', icon: 'fab fa-github', label: 'GitHub' },
-  { href: 'https://linkedin.com', icon: 'fab fa-linkedin-in', label: 'LinkedIn' },
-  { href: 'mailto:you@example.com', icon: 'fas fa-envelope', label: 'Email' },
-  { href: 'https://twitter.com', icon: 'fab fa-twitter', label: 'Twitter' },
+  { href: 'https://t.me/Tet_Elite', icon: 'fab fa-telegram', label: 'Telegram' },
+  { href: 'https://github.com/TetElite', icon: 'fab fa-github', label: 'GitHub' },
+  { href: 'mailto:elitenozero@gmail.com', icon: 'fas fa-envelope', label: 'Email' },
 ];
 
 function ContactSection() {
@@ -562,11 +693,11 @@ function ContactSection() {
     setLoading(true);
     try {
       await contactService.sendMessage(formData);
-      toast.success('Message sent! I will get back to you soon.');
+      toast.success('Message sent! I respond faster than my code compiles.');
       setFormData({ name: '', email: '', content: '' });
     } catch (err) {
       console.error(err);
-      toast.error('Failed to send message. Please try again.');
+      toast.error('Failed to send message. Is the server down?');
     } finally {
       setLoading(false);
     }
@@ -578,7 +709,7 @@ function ContactSection() {
     <section id="contact" style={{ padding: '100px 24px', background: 'rgba(0,245,255,0.01)' }}>
       <div style={{ maxWidth: '760px', margin: '0 auto' }}>
         <RevealSection>
-          <SectionHeader tag="[ SEND MESSAGE ]" sub="// Don't be shy. Even NPCs talk to strangers." />
+          <SectionHeader tag="[ SEND MESSAGE ]" sub="// I respond faster than my code compiles." />
         </RevealSection>
 
         <RevealSection delay={0.1}>
@@ -613,7 +744,7 @@ function ContactSection() {
                 onChange={handleChange}
                 onFocus={() => setFocused('content')}
                 onBlur={() => setFocused(null)}
-                placeholder="[How can I help you?]"
+                placeholder="[What's on your mind?]"
                 className="input-pixel"
                 style={{ resize: 'vertical', borderColor: focused === 'content' ? 'var(--cyan)' : undefined }}
               />
@@ -632,7 +763,7 @@ function ContactSection() {
 
         <RevealSection delay={0.2}>
           <p style={{ fontFamily: '"Fira Code", monospace', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '16px', letterSpacing: '1px' }}>
-            // Or reach me via:
+            // Connect with me:
           </p>
           <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
             {SOCIALS.map(({ href, icon, label }) => (
@@ -664,6 +795,7 @@ function ResumeFloatingButton() {
       aria-label="Download Resume"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      title="[ Download CV ]"
       style={{
         position: 'fixed',
         bottom: '28px',
@@ -687,7 +819,7 @@ function ResumeFloatingButton() {
       }}
     >
       <span>💾</span>
-      <span className="hidden md:inline">SAVE GAME</span>
+      <span className="hidden md:inline">SAVE_RESUME.pdf</span>
     </a>
   );
 }
@@ -703,6 +835,8 @@ export default function Home() {
       <AboutSection />
       <PixelDivider />
       <SkillsSection />
+      <PixelDivider />
+      <VolunteeringSection />
       <PixelDivider />
       <ProjectsSection />
       <PixelDivider />
