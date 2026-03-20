@@ -1,7 +1,3 @@
-import { useState, useRef } from 'react';
-import toast from 'react-hot-toast';
-import emailjs from '@emailjs/browser';
-
 const SOCIALS = [
   { href: 'https://github.com', icon: 'fab fa-github', label: 'GitHub' },
   { href: 'https://linkedin.com', icon: 'fab fa-linkedin-in', label: 'LinkedIn' },
@@ -10,57 +6,11 @@ const SOCIALS = [
 ];
 
 export default function Contact() {
-  const formRef = useRef();
-  const [loading, setLoading] = useState(false);
-  const [focusedField, setFocusedField] = useState(null);
-
-  // NOTE: You need to create an account at https://www.emailjs.com/
-  // and replace these placeholders with your actual Service ID, Template ID, and Public Key.
-  // 1. Create a Service (e.g. Gmail)
-  // 2. Create a Template (with variables: {{user_name}}, {{user_email}}, {{message}})
-  // 3. Get your Public Key from Account > API Keys
-  const SERVICE_ID = 'YOUR_SERVICE_ID';
-  const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-  const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    if (SERVICE_ID === 'YOUR_SERVICE_ID') {
-      toast.error('EmailJS not configured! Please set your Service ID in Contact.jsx');
-      setLoading(false);
-      return;
-    }
-
-    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
-      .then((result) => {
-          console.log(result.text);
-          toast.success('Message sent! I will get back to you soon.');
-          e.target.reset();
-      }, (error) => {
-          console.log(error.text);
-          toast.error('Failed to send message. Please try again.');
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-
-  const labelStyle = {
-    fontFamily: '"Fira Code", monospace',
-    fontSize: '11px',
-    color: 'var(--cyan-dim)',
-    letterSpacing: '1px',
-    display: 'block',
-    marginBottom: '8px',
-  };
-
   return (
     <main style={{ maxWidth: '760px', margin: '0 auto', padding: '64px 24px' }}>
       {/* Section header */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '10px' }}>
-        <h2 className="section-tag">[ SEND MESSAGE ]</h2>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '10px' }}>
+        <h2 className="section-tag">[ GET IN TOUCH ]</h2>
       </div>
 
       {/* Flavor text */}
@@ -70,96 +20,52 @@ export default function Contact() {
         color: 'var(--text-dim)',
         marginBottom: '40px',
       }}>
-        {'// Don\'t be shy. Even NPCs talk to strangers.'}
+        {'// Let\'s connect and build something amazing together.'}
       </p>
 
-      {/* Form */}
-      <form
-        ref={formRef}
-        onSubmit={handleSubmit}
-        style={{
-          background: 'var(--bg-card)',
-          border: '2px solid rgba(0,245,255,0.18)',
-          padding: '36px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '24px',
-          marginBottom: '40px',
-        }}
-      >
-        {/* Name */}
-        <div>
-          <label htmlFor="user_name" style={labelStyle}>
-            &gt; NAME_
-          </label>
-          <input
-            id="user_name"
-            name="user_name"
-            type="text"
-            required
-            onFocus={() => setFocusedField('name')}
-            onBlur={() => setFocusedField(null)}
-            placeholder="[Your Name]"
-            className="input-pixel"
-            style={{ borderColor: focusedField === 'name' ? 'var(--cyan)' : undefined }}
-          />
-        </div>
+      {/* Contact info */}
+      <div style={{
+        background: 'var(--bg-card)',
+        border: '2px solid rgba(0,245,255,0.18)',
+        padding: '36px',
+        marginBottom: '40px',
+      }}>
+        <h3 style={{
+          fontFamily: '"Press Start 2P", cursive',
+          fontSize: '12px',
+          color: 'var(--cyan)',
+          marginBottom: '24px',
+          letterSpacing: '1px',
+        }}>
+          &gt; REACH_OUT
+        </h3>
 
-        {/* Email */}
-        <div>
-          <label htmlFor="user_email" style={labelStyle}>
-            &gt; EMAIL_
-          </label>
-          <input
-            id="user_email"
-            name="user_email"
-            type="email"
-            required
-            onFocus={() => setFocusedField('email')}
-            onBlur={() => setFocusedField(null)}
-            placeholder="[your@email.com]"
-            className="input-pixel"
-            style={{ borderColor: focusedField === 'email' ? 'var(--cyan)' : undefined }}
-          />
+        <div style={{ marginBottom: '20px' }}>
+          <p style={{
+            fontFamily: '"Fira Code", monospace',
+            fontSize: '14px',
+            color: 'var(--text)',
+            marginBottom: '8px',
+          }}>
+            <strong style={{ color: 'var(--cyan-dim)' }}>Email:</strong> your.email@example.com
+          </p>
+          <p style={{
+            fontFamily: '"Fira Code", monospace',
+            fontSize: '14px',
+            color: 'var(--text)',
+            marginBottom: '8px',
+          }}>
+            <strong style={{ color: 'var(--cyan-dim)' }}>Location:</strong> Your City, Country
+          </p>
+          <p style={{
+            fontFamily: '"Fira Code", monospace',
+            fontSize: '14px',
+            color: 'var(--text)',
+          }}>
+            <strong style={{ color: 'var(--cyan-dim)' }}>Status:</strong> <span style={{ color: 'var(--green)' }}>Available for projects</span>
+          </p>
         </div>
-
-        {/* Message */}
-        <div>
-          <label htmlFor="message" style={labelStyle}>
-            &gt; MESSAGE_
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            required
-            rows={6}
-            onFocus={() => setFocusedField('content')}
-            onBlur={() => setFocusedField(null)}
-            placeholder="[How can I help you?]"
-            className="input-pixel"
-            style={{
-              resize: 'vertical',
-              borderColor: focusedField === 'content' ? 'var(--cyan)' : undefined,
-            }}
-          />
-        </div>
-
-        {/* Submit */}
-        <button
-          type="submit"
-          disabled={loading}
-          className="btn-pixel"
-          style={{
-            width: '100%',
-            textAlign: 'center',
-            opacity: loading ? 0.6 : 1,
-            cursor: loading ? 'not-allowed' : 'pointer',
-          }}
-          aria-label="Send message"
-        >
-          <span>{loading ? '// TRANSMITTING...' : '> SEND_MESSAGE'}</span>
-        </button>
-      </form>
+      </div>
 
       {/* Social icons */}
       <div>
@@ -170,7 +76,7 @@ export default function Contact() {
           marginBottom: '20px',
           letterSpacing: '1px',
         }}>
-          // Or reach me via:
+          // Or find me on social platforms:
         </p>
         <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
           {SOCIALS.map(({ href, icon, label }) => (

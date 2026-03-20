@@ -1,8 +1,6 @@
 import { useEffect, useState, useRef, useMemo } from 'react';
 import projectService from '../services/projectService';
-import contactService from '../services/contactService';
 import { projects as projectsData } from '../data/projects';
-import toast from 'react-hot-toast';
 
 import { createPortal } from 'react-dom';
 
@@ -837,117 +835,6 @@ function ProjectsSection() {
 }
 
 // ══════════════════════════════════════════════════════════
-//  SECTION 6 — CONTACT
-// ══════════════════════════════════════════════════════════
-const SOCIALS = [
-  { href: 'https://t.me/Tet_Elite', icon: 'fab fa-telegram', label: 'Telegram' },
-  { href: 'https://github.com/TetElite', icon: 'fab fa-github', label: 'GitHub' },
-  { href: 'mailto:elitenozero@gmail.com', icon: 'fas fa-envelope', label: 'Email' },
-];
-
-function ContactSection() {
-  const [formData, setFormData] = useState({ name: '', email: '', content: '' });
-  const [loading, setLoading] = useState(false);
-  const [focused, setFocused] = useState(null);
-
-  const handleChange = e => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await contactService.sendMessage(formData);
-      toast.success('Message sent! I respond faster than my code compiles.');
-      setFormData({ name: '', email: '', content: '' });
-    } catch (err) {
-      console.error(err);
-      toast.error('Failed to send message. Is the server down?');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const labelStyle = { fontFamily: '"Fira Code", monospace', fontSize: '11px', color: 'var(--cyan-dim)', letterSpacing: '1px', display: 'block', marginBottom: '8px' };
-
-  return (
-    <section id="contact" style={{ padding: '100px 24px', background: 'rgba(0,245,255,0.01)' }}>
-      <div style={{ maxWidth: '760px', margin: '0 auto' }}>
-        <RevealSection>
-          <SectionHeader tag="[ SEND MESSAGE ]" sub="// I respond faster than my code compiles." />
-        </RevealSection>
-
-        <RevealSection delay={0.1}>
-          <form
-            onSubmit={handleSubmit}
-            style={{ background: 'var(--bg-card)', border: '2px solid rgba(0,245,255,0.15)', padding: '36px', display: 'flex', flexDirection: 'column', gap: '22px', marginBottom: '36px' }}
-          >
-            {[
-              { name: 'name', label: '> NAME_', placeholder: '[Your Name]', type: 'text' },
-              { name: 'email', label: '> EMAIL_', placeholder: '[your@email.com]', type: 'email' },
-            ].map(({ name, label, placeholder, type }) => (
-              <div key={name}>
-                <label htmlFor={name} style={labelStyle}>{label}</label>
-                <input
-                  id={name} name={name} type={type} required
-                  value={formData[name]}
-                  onChange={handleChange}
-                  onFocus={() => setFocused(name)}
-                  onBlur={() => setFocused(null)}
-                  placeholder={placeholder}
-                  className="input-pixel"
-                  style={{ borderColor: focused === name ? 'var(--cyan)' : undefined }}
-                />
-              </div>
-            ))}
-
-            <div>
-              <label htmlFor="content" style={labelStyle}>&gt; MESSAGE_</label>
-              <textarea
-                id="content" name="content" required rows={5}
-                value={formData.content}
-                onChange={handleChange}
-                onFocus={() => setFocused('content')}
-                onBlur={() => setFocused(null)}
-                placeholder="[What's on your mind?]"
-                className="input-pixel"
-                style={{ resize: 'vertical', borderColor: focused === 'content' ? 'var(--cyan)' : undefined }}
-              />
-            </div>
-
-            <button
-              type="submit" disabled={loading}
-              className="btn-pixel"
-              style={{ width: '100%', textAlign: 'center', opacity: loading ? 0.6 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}
-              aria-label="Send message"
-            >
-              <span>{loading ? '// TRANSMITTING...' : '> SEND_MESSAGE'}</span>
-            </button>
-          </form>
-        </RevealSection>
-
-        <RevealSection delay={0.2}>
-          <p style={{ fontFamily: '"Fira Code", monospace', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '16px', letterSpacing: '1px' }}>
-            // Connect with me:
-          </p>
-          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
-            {SOCIALS.map(({ href, icon, label }) => (
-              <a
-                key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                style={{ width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid rgba(0,245,255,0.2)', color: 'var(--text-dim)', fontSize: '16px', textDecoration: 'none', transition: 'all 0.25s ease' }}
-                onMouseEnter={e => { e.currentTarget.style.color = 'var(--cyan)'; e.currentTarget.style.borderColor = 'var(--cyan)'; e.currentTarget.style.boxShadow = '0 0 16px rgba(0,245,255,0.25)'; }}
-                onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-dim)'; e.currentTarget.style.borderColor = 'rgba(0,245,255,0.2)'; e.currentTarget.style.boxShadow = 'none'; }}
-              >
-                <i className={icon} aria-hidden="true" />
-              </a>
-            ))}
-          </div>
-        </RevealSection>
-      </div>
-    </section>
-  );
-}
-
-// ══════════════════════════════════════════════════════════
 //  FLOATING RESUME BUTTON ─ bottom-right sticky
 // ══════════════════════════════════════════════════════════
 function ResumeFloatingButton() {
@@ -1003,8 +890,6 @@ export default function Home() {
       <VolunteeringSection />
       <PixelDivider />
       <ProjectsSection />
-      <PixelDivider />
-      <ContactSection />
       <ResumeFloatingButton />
     </div>
   );
