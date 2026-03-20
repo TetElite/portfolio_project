@@ -4,13 +4,13 @@ node_modules/
 *.log
 .env.local
 
-# Large media files - host separately or use Git LFS
-*.mp4
+# Large media files - temporarily allowing mp4 for deployment
+# *.mp4
 *.mov
 *.avi
 *.mkv
-portfolio/frontend/public/photos/*.mp4
-portfolio/frontend/public/photos/*.mov
+# portfolio/frontend/public/photos/*.mp4
+# portfolio/frontend/public/photos/*.mov
 portfolio/Photo/*.mp4
 portfolio/Photo/*.mov
 
