@@ -1,17 +1,37 @@
 export const projects = [
   {
     id: 1,
+    title: "CoffeeHybrid V2",
+    subtitle: "Smart Coffee Ordering System",
+    type: "Full-Stack E-Commerce",
+    role: "Full-Stack Developer",
+    period: "Feb – Mar 2026",
+    tags: ["Next.js 15", "TypeScript", "Tailwind v4", "MongoDB", "NextAuth v5", "Zustand"],
+    description:
+      "A modern coffee ordering platform featuring a smart menu with real-time customization, Zustand-powered cart management, and QR code verification for orders. Includes a staff dashboard with live order tracking (Kanban board) and a QR scanner for instant pickup verification. Refactored for maximum performance and clean architecture.",
+    media: "/photos/CoffeeHybridDemo.mp4",
+    mediaType: "video",
+    screenshots: [
+      "/photos/CoffeeHybrid 2026-03-20 at 2.31.37 in the afternoon.png",
+      "/photos/CoffeeHybrid 2026-03-20 at 2.31.48 in the afternoon.png",
+      "/photos/CoffeeHybrid 2026-03-20 at 2.32.02 in the afternoon.png",
+      "/photos/CoffeeHybrid 2026-03-20 at 2.32.23 in the afternoon.png",
+      "/photos/CoffeeHybrid 2026-03-20 at 2.33.49 in the afternoon.png",
+      "/photos/CoffeeHybrid 2026-03-20 at 2.34.07 in the afternoon.png"
+    ],
+    github: "https://github.com/TetElite/coffeehybrid",
+    live: "https://coffeehybrid-zveg.vercel.app/",
+  },
+  {
+    id: 2,
     title: "MahopFlex",
     subtitle: "Offline Food Recipe Finder",
     type: "Mobile App",
     role: "Mobile Developer",
     period: "Dec 2025 – Jan 2026",
-    tags: ["Flutter", "SQLite", "Offline", "UI Design"],
+    tags: ["Flutter", "SQLite", "Offline DB", "UI Design"],
     description:
-      "An offline food recipe finder built with Flutter and SQLite. " +
-      "Handled backend logic, database design, and data modeling — " +
-      "plus contributed to UI and overall app structure. " +
-      "Works without internet. No WiFi? No problem.",
+      "A fully offline food recipe finder built with Flutter and SQLite. Handled backend logic, database design, and data modeling. Designed for areas with limited connectivity, ensuring users can access culinary inspiration anytime, anywhere.",
     media: "/photos/mahopdemo.mov",
     mediaType: "video",
     screenshots: [
