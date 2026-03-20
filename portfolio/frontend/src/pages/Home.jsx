@@ -555,9 +555,7 @@ function VolunteeringSection() {
 function ProjectCard({ project, onClick }) {
   const [hovered, setHovered] = useState(false);
   const videoRef = useRef(null);
-  const videoSrcCandidate = project?.media && project.media.startsWith('/photos/')
-    ? project.media.replace('/photos/', '/video/')
-    : project?.media;
+  const videoSrcCandidate = project?.media;
 
   return (
     <div
