@@ -388,3 +388,21 @@ body {
   font-family: 'Fira Code', monospace !important;
   font-size: 13px !important;
 }
+
+/* ─── PARTICLES ───────────────────────────────────────── */
+.particle {
+  position: absolute;
+  background: var(--cyan);
+  border-radius: 50%;
+  animation-name: float;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  box-shadow: 0 0 4px var(--cyan);
+  pointer-events: none;
+}
+@keyframes float {
+  0% { transform: translateY(0vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}

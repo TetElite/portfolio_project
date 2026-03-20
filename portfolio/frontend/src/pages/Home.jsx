@@ -4,6 +4,8 @@ import contactService from '../services/contactService';
 import { projects as projectsData } from '../data/projects';
 import toast from 'react-hot-toast';
 
+import { createPortal } from 'react-dom';
+
 // ─── Typing Animation Hook ──────────────────────────────
 const PHRASES = [
   'Full-Stack Developer',
@@ -133,7 +135,10 @@ function HeroSection() {
           &gt; Hello, World! I&apos;m
         </p>
 
-        {/* Name removed from visible heading as requested */}
+        {/* Name */}
+        <h1 className="glow-cyan" style={{ fontFamily: '"Press Start 2P", cursive', fontSize: 'clamp(22px,5vw,50px)', letterSpacing: '4px', lineHeight: 1.3, marginBottom: '24px', ...fadeIn(0.2) }}>
+          Tet Elite
+        </h1>
 
         {/* Typing */}
         <div style={{ fontFamily: '"Fira Code", monospace', fontSize: 'clamp(13px,2.5vw,20px)', color: 'var(--text)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginBottom: '28px', ...fadeIn(0.3) }}>
@@ -185,7 +190,6 @@ function AboutSection() {
     { icon: '🐛', label: 'Bugs Fixed', value: '9999' },
     { icon: '🎮', label: 'Games Built', value: '1' },
     { icon: '📱', label: 'Apps Shipped', value: '2' },
-    { icon: '🌍', label: 'Languages Spoken', value: '3' },
     { icon: '🚲', label: 'Volunteer Events', value: '3' },
     { icon: '🎤', label: 'Concerts Worked', value: '1' },
   ];
@@ -276,10 +280,28 @@ function AboutSection() {
                 </div>
               ))}
             </div>
-            {/* Specific language stat with list style */}
-            <div style={{ fontFamily: '"Fira Code", monospace', fontSize: '10px', color: 'var(--text-dim)', marginTop: '4px' }}>
-              🌍 Languages: Khmer, English, JavaScript (barely)
+            
+            {/* Languages Container */}
+            <div style={{
+              background: 'var(--bg-card)',
+              border: '1px solid rgba(0,245,255,0.12)',
+              padding: '12px 14px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              marginTop: '4px',
+              transition: 'border-color 0.25s ease',
+            }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(0,245,255,0.4)'}
+              onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(0,245,255,0.12)'}
+            >
+              <span style={{ fontSize: '18px' }}>🌍</span>
+              <div>
+                <div style={{ fontFamily: '"Press Start 2P", cursive', fontSize: '9px', color: 'var(--cyan)' }}>LANGUAGES</div>
+                <div style={{ fontFamily: '"Fira Code", monospace', fontSize: '11px', color: 'var(--text-dim)', marginTop: '4px' }}>Khmer, English, JavaScript (barely)</div>
+              </div>
             </div>
+            
           </div>
         </RevealSection>
       </div>
@@ -295,9 +317,9 @@ const SKILL_GROUPS = [
     category: 'Full-Stack',
     icon: '/photos/react.png',
     skills: [
-      { name: 'Next.js 15', icon: '/photos/react.png' },
+      { name: 'Next.js 15', icon: '/photos/Nextjs.png' },
       { name: 'React 19', icon: '/photos/react.png' },
-      { name: 'TypeScript', icon: '/photos/javascript.png' },
+      { name: 'TypeScript', icon: '/photos/TypeScript.png' },
       { name: 'Tailwind v4', icon: '/photos/tailwind.png' },
       { name: 'GitHub', icon: '/photos/GitHub-logo.png' },
     ],
@@ -309,7 +331,7 @@ const SKILL_GROUPS = [
       { name: 'Node.js', icon: '/photos/node.jpg' },
       { name: 'MongoDB', icon: '/photos/mongodb-atlas-google-cloud-partnership-nosql-databases-integrations-2.jpg' },
       { name: 'NextAuth v5', icon: '/photos/react.png' },
-      { name: 'REST APIs', icon: '/photos/express.png' },
+      { name: 'REST APIs', icon: '/photos/Restapi.png' },
     ],
   },
   {
@@ -326,6 +348,7 @@ const SKILL_GROUPS = [
     icon: '/photos/Figma.png',
     skills: [
       { name: 'Figma', icon: '/photos/Figma.png' },
+      { name: 'Canva', icon: '/photos/canva.png' },
     ],
   },
   {
@@ -350,14 +373,14 @@ function SkillCard({ skill }) {
       style={{
         background: hovered ? 'rgba(0,245,255,0.04)' : 'var(--bg-card)',
         border: hovered ? '2px solid var(--cyan)' : '1px solid rgba(0,245,255,0.12)',
-        width: '140px',
-        height: '110px',
-        padding: '12px',
+        width: '100%',
+        minHeight: '90px',
+        padding: '10px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '8px',
+        gap: '6px',
         transition: 'all 0.25s ease',
         boxShadow: hovered ? '0 0 18px rgba(0,245,255,0.08)' : 'none',
         cursor: 'default',
@@ -365,10 +388,10 @@ function SkillCard({ skill }) {
         overflow: 'hidden'
       }}
     >
-      <div style={{ width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <img
           src={skill.icon}
-          style={{ width: '36px', height: '36px', objectFit: 'contain', filter: hovered ? 'none' : 'grayscale(0.2)' }}
+          style={{ width: '28px', height: '28px', objectFit: 'contain', filter: hovered ? 'none' : 'grayscale(0.2)' }}
           alt=""
           onError={(e) => { e.target.style.display = 'none'; }}
         />
@@ -376,21 +399,22 @@ function SkillCard({ skill }) {
 
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <span style={{ 
-          fontFamily: '"Fira Code", monospace', fontSize: '14px', 
+          fontFamily: '"Fira Code", monospace', fontSize: '11px', 
           color: hovered ? 'var(--cyan)' : 'var(--text)', 
           fontWeight: 600,
+          textAlign: 'center',
           transition: 'color 0.25s ease' 
         }}>
           {skill.name}
         </span>
-        {skill.name === 'Lua / PICO-8' && <span style={{ fontSize: '8px', color: '#fb923c', fontFamily: '"Press Start 2P"' }}>[ EXPLORING ]</span>}
-        {skill.name === 'Figma' && <span style={{ fontSize: '8px', color: 'var(--text-dim)', fontFamily: '"Press Start 2P"' }}>[ DESIGN ]</span>}
+        {skill.name === 'Lua / PICO-8' && <span style={{ fontSize: '7px', color: '#fb923c', fontFamily: '"Press Start 2P"' }}>[ EXPLORING ]</span>}
+        {skill.name === 'Figma' && <span style={{ fontSize: '7px', color: 'var(--text-dim)', fontFamily: '"Press Start 2P"' }}>[ DESIGN ]</span>}
       </div>
 
       {hovered && (
         <div style={{ 
-          position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)',
-          fontSize: '10px', color: 'var(--cyan)', opacity: 0.5, fontFamily: '"Fira Code"'
+          position: 'absolute', right: '6px', top: '6px',
+          fontSize: '8px', color: 'var(--cyan)', opacity: 0.5, fontFamily: '"Fira Code"'
         }}>
           &lt;/&gt;
         </div>
@@ -407,7 +431,7 @@ function SkillsSection() {
           <SectionHeader tag="[ TECH_STACK ]" sub="// My current arsenal of technologies" />
         </RevealSection>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
           {SKILL_GROUPS.map((group, gi) => (
             <RevealSection key={group.category} delay={gi * 0.1}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -425,9 +449,12 @@ function SkillsSection() {
                   ) : null}
                   {group.category.toUpperCase()}
                 </div>
-                {group.skills.map((skill) => (
-                  <SkillCard key={skill.name} skill={skill} />
-                ))}
+                {/* Skills Grid - 2 Columns */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                  {group.skills.map((skill) => (
+                    <SkillCard key={skill.name} skill={skill} />
+                  ))}
+                </div>
               </div>
             </RevealSection>
           ))}
@@ -485,18 +512,19 @@ function VolunteeringSection() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
         {SIDE_QUESTS.map((quest, i) => (
-          <RevealSection key={quest.id} delay={i * 0.1}>
+          <RevealSection key={quest.id} delay={i * 0.1} style={{ height: '100%' }}>
             <div style={{
               background: 'var(--bg-card)',
               border: '2px solid rgba(0,245,255,0.12)',
               padding: '0',
               display: 'flex', flexDirection: 'column',
-              position: 'relative', overflow: 'hidden'
+              position: 'relative', overflow: 'hidden',
+              height: '100%' 
             }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--cyan)'; e.currentTarget.style.boxShadow = '0 0 20px rgba(0,245,255,0.1)'; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(0,245,255,0.12)'; e.currentTarget.style.boxShadow = 'none'; }}
             >
-              <div style={{ height: '180px', overflow: 'hidden', borderBottom: '2px solid rgba(0,245,255,0.12)' }}>
+              <div style={{ height: '180px', flexShrink: 0, overflow: 'hidden', borderBottom: '2px solid rgba(0,245,255,0.12)' }}>
                 <img src={quest.image} alt={quest.event} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8, transition: 'all 0.4s ease' }} onMouseEnter={e => e.target.style.opacity = 1} onMouseLeave={e => e.target.style.opacity = 0.8} />
               </div>
               <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -508,7 +536,7 @@ function VolunteeringSection() {
                   <p style={{ fontFamily: '"Fira Code", monospace', fontSize: '11px', color: 'var(--text-dim)', marginTop: '4px' }}>{quest.role} · {quest.org}</p>
                 </div>
 
-                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: 'var(--text-dim)', lineHeight: 1.7, margin: 0 }}>{quest.desc}</p>
+                <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: 'var(--text-dim)', lineHeight: 1.7, margin: 0, flex: 1 }}>{quest.desc}</p>
 
               </div>
               <div style={{ padding: '0 24px 24px', fontFamily: '"Fira Code", monospace', fontSize: '10px', color: 'var(--cyan-dim)', marginTop: 'auto' }}>
@@ -619,7 +647,7 @@ function ProjectModal({ project, onClose }) {
     if (e.target === e.currentTarget) onClose();
   };
 
-  return (
+  return createPortal(
     <div 
       onClick={handleBackdropClick}
       style={{
@@ -758,7 +786,8 @@ function ProjectModal({ project, onClose }) {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

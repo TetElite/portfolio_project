@@ -102,14 +102,10 @@ export const projects = [
     role: "Frontend Developer",
     period: "2026 – Present",
     tags: ["React", "Vite", "Tailwind", "EmailJS", "Framer Motion"],
-    description:
-      "A pixel-themed dark portfolio built with React and Vite. " +
-      "Smooth animations, a working contact form via EmailJS, " +
-      "and zero backend needed. " +
-      "Yes, it's showing you itself right now. Very meta.",
+    description: "A pixel-themed dark portfolio built with React and Vite.",
     media: "/photos/Portfolio.png",
-    mediaType: "gif",
-    github: null,
-    live: null,
+    mediaType: "image",
+    github: "https://github.com/TetElite/portfolio_project",
+    live: "https://portfolio-project-m7yi.vercel.app/",
   },
 ];

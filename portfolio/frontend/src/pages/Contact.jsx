@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import contactService from '../services/contactService';
+import { useState, useRef } from 'react';
 import toast from 'react-hot-toast';
+import emailjs from '@emailjs/browser';
 
 const SOCIALS = [
   { href: 'https://github.com', icon: 'fab fa-github', label: 'GitHub' },
@@ -10,27 +10,41 @@ const SOCIALS = [
 ];
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', content: '' });
+  const formRef = useRef();
   const [loading, setLoading] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
 
-  const handleChange = e => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  // NOTE: You need to create an account at https://www.emailjs.com/
+  // and replace these placeholders with your actual Service ID, Template ID, and Public Key.
+  // 1. Create a Service (e.g. Gmail)
+  // 2. Create a Template (with variables: {{user_name}}, {{user_email}}, {{message}})
+  // 3. Get your Public Key from Account > API Keys
+  const SERVICE_ID = 'YOUR_SERVICE_ID';
+  const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+  const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
 
-  const handleSubmit = async e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      await contactService.sendMessage(formData);
-      toast.success('Message sent! I will get back to you soon.');
-      setFormData({ name: '', email: '', content: '' });
-    } catch (err) {
-      console.error(err);
-      toast.error('Failed to send message. Please try again.');
-    } finally {
+
+    if (SERVICE_ID === 'YOUR_SERVICE_ID') {
+      toast.error('EmailJS not configured! Please set your Service ID in Contact.jsx');
       setLoading(false);
+      return;
     }
+
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
+      .then((result) => {
+          console.log(result.text);
+          toast.success('Message sent! I will get back to you soon.');
+          e.target.reset();
+      }, (error) => {
+          console.log(error.text);
+          toast.error('Failed to send message. Please try again.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const labelStyle = {
@@ -61,6 +75,7 @@ export default function Contact() {
 
       {/* Form */}
       <form
+        ref={formRef}
         onSubmit={handleSubmit}
         style={{
           background: 'var(--bg-card)',
@@ -74,16 +89,14 @@ export default function Contact() {
       >
         {/* Name */}
         <div>
-          <label htmlFor="name" style={labelStyle}>
+          <label htmlFor="user_name" style={labelStyle}>
             &gt; NAME_
           </label>
           <input
-            id="name"
-            name="name"
+            id="user_name"
+            name="user_name"
             type="text"
             required
-            value={formData.name}
-            onChange={handleChange}
             onFocus={() => setFocusedField('name')}
             onBlur={() => setFocusedField(null)}
             placeholder="[Your Name]"
@@ -94,16 +107,14 @@ export default function Contact() {
 
         {/* Email */}
         <div>
-          <label htmlFor="email" style={labelStyle}>
+          <label htmlFor="user_email" style={labelStyle}>
             &gt; EMAIL_
           </label>
           <input
-            id="email"
-            name="email"
+            id="user_email"
+            name="user_email"
             type="email"
             required
-            value={formData.email}
-            onChange={handleChange}
             onFocus={() => setFocusedField('email')}
             onBlur={() => setFocusedField(null)}
             placeholder="[your@email.com]"
@@ -114,16 +125,14 @@ export default function Contact() {
 
         {/* Message */}
         <div>
-          <label htmlFor="content" style={labelStyle}>
+          <label htmlFor="message" style={labelStyle}>
             &gt; MESSAGE_
           </label>
           <textarea
-            id="content"
-            name="content"
+            id="message"
+            name="message"
             required
             rows={6}
-            value={formData.content}
-            onChange={handleChange}
             onFocus={() => setFocusedField('content')}
             onBlur={() => setFocusedField(null)}
             placeholder="[How can I help you?]"
