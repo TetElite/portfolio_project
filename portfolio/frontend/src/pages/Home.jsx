@@ -1,6 +1,7 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import projectService from '../services/projectService';
 import contactService from '../services/contactService';
+import { projects as projectsData } from '../data/projects';
 import toast from 'react-hot-toast';
 
 // ─── Typing Animation Hook ──────────────────────────────
@@ -382,55 +383,63 @@ const SKILL_GROUPS = [
   },
 ];
 
-function SkillCard({ skill, groupVisible }) {
+function SkillCard({ skill }) {
   const [hovered, setHovered] = useState(false);
-  const [barWidth, setBarWidth] = useState(0);
-
-  useEffect(() => {
-    if (groupVisible) {
-      const t = setTimeout(() => setBarWidth(skill.xp), 300);
-      return () => clearTimeout(t);
-    }
-  }, [groupVisible, skill.xp]);
 
   return (
     <div
-      onMouseEnter={() => { setHovered(true); setBarWidth(100); }}
-      onMouseLeave={() => { setHovered(false); setBarWidth(skill.xp); }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? 'rgba(0,245,255,0.05)' : 'var(--bg-card)',
-        border: hovered ? '2px solid var(--cyan)' : '2px solid rgba(0,245,255,0.12)',
-        padding: '16px',
+        background: hovered ? 'rgba(0,245,255,0.08)' : 'var(--bg-card)',
+        border: hovered ? '2px solid var(--cyan)' : '1px solid rgba(0,245,255,0.15)',
+        padding: '12px 16px',
         display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
-        transition: 'all 0.3s ease',
-        boxShadow: hovered ? '0 0 20px rgba(0,245,255,0.1)' : 'none',
+        alignItems: 'center',
+        gap: '12px',
+        transition: 'all 0.25s ease',
+        boxShadow: hovered ? '0 0 15px rgba(0,245,255,0.1)' : 'none',
         cursor: 'default',
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <div style={{ 
+        width: '28px', height: '28px', 
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        background: 'rgba(0,0,0,0.2)', 
+        border: '1px solid rgba(0,245,255,0.1)'
+      }}>
         <img
-          src={skill.icon.startsWith('/') ? skill.icon : undefined}
-          style={{ width: '20px', height: '20px', objectFit: 'contain' }}
+          src={skill.icon}
+          style={{ width: '18px', height: '18px', objectFit: 'contain', filter: hovered ? 'none' : 'grayscale(0.3)' }}
           alt=""
           onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
         />
-        <span style={{ fontSize: '18px', display: skill.icon.startsWith('/') ? 'none' : 'block' }}>{skill.icon}</span>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <span style={{ fontFamily: '"Fira Code", monospace', fontSize: '13px', color: hovered ? 'var(--cyan)' : 'var(--text)', transition: 'color 0.25s ease' }}>
-            {skill.name}
-          </span>
-          {skill.name === 'Lua / PICO-8' && <span style={{ fontSize: '9px', color: '#fb923c' }}>[🟧 Exploring]</span>}
-          {skill.name === 'Figma' && <span style={{ fontSize: '9px', color: 'var(--text-dim)' }}>[Self-taught]</span>}
-        </div>
-        <span style={{ marginLeft: 'auto', fontFamily: '"Press Start 2P", cursive', fontSize: '8px', color: 'var(--cyan-dim)' }}>
-          {hovered ? '100' : skill.xp}%
+        <span style={{ fontSize: '14px', display: 'none' }}>{skill.icon}</span>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+        <span style={{ 
+          fontFamily: '"Fira Code", monospace', fontSize: '13px', 
+          color: hovered ? 'var(--cyan)' : 'var(--text)', 
+          fontWeight: 500,
+          transition: 'color 0.25s ease' 
+        }}>
+          {skill.name}
         </span>
+        {skill.name === 'Lua / PICO-8' && <span style={{ fontSize: '8px', color: '#fb923c', fontFamily: '"Press Start 2P"' }}>[ EXPLORING ]</span>}
+        {skill.name === 'Figma' && <span style={{ fontSize: '8px', color: 'var(--text-dim)', fontFamily: '"Press Start 2P"' }}>[ DESIGN ]</span>}
       </div>
-      <div className="xp-bar-track">
-        <div className="xp-bar-fill" style={{ width: `${barWidth}%` }} />
-      </div>
+
+      {hovered && (
+        <div style={{ 
+          position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)',
+          fontSize: '10px', color: 'var(--cyan)', opacity: 0.5, fontFamily: '"Fira Code"'
+        }}>
+          &lt;/&gt;
+        </div>
+      )}
     </div>
   );
 }
@@ -440,25 +449,26 @@ function SkillsSection() {
     <section id="skills" style={{ padding: '100px 24px', background: 'rgba(0,245,255,0.01)' }}>
       <div style={{ maxWidth: '1152px', margin: '0 auto' }}>
         <RevealSection>
-          <SectionHeader tag="[ SKILL TREE ]" sub="// My current arsenal of technologies" />
+          <SectionHeader tag="[ TECH_STACK ]" sub="// My current arsenal of technologies" />
         </RevealSection>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px' }}>
           {SKILL_GROUPS.map((group, gi) => (
-            <RevealSection key={group.category} delay={gi * 0.12}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <RevealSection key={group.category} delay={gi * 0.1}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {/* Group header */}
                 <div style={{
-                  fontFamily: '"Press Start 2P", cursive', fontSize: '10px',
+                  fontFamily: '"Press Start 2P", cursive', fontSize: '9px',
                   color: 'var(--cyan)', letterSpacing: '1px',
-                  borderBottom: '1px solid rgba(0,245,255,0.15)',
-                  paddingBottom: '10px', marginBottom: '4px',
+                  background: 'rgba(0,245,255,0.05)',
+                  padding: '10px', marginBottom: '6px',
                   display: 'flex', alignItems: 'center', gap: '10px',
+                  borderLeft: '3px solid var(--cyan)'
                 }}>
-                  <span>{group.icon}</span> {group.category}
+                  <span>{group.icon}</span> {group.category.toUpperCase()}
                 </div>
                 {group.skills.map((skill) => (
-                  <SkillCard key={skill.name} skill={skill} groupVisible={true} />
+                  <SkillCard key={skill.name} skill={skill} />
                 ))}
               </div>
             </RevealSection>
@@ -557,32 +567,13 @@ function VolunteeringSection() {
 // ══════════════════════════════════════════════════════════
 //  SECTION 5 — PROJECTS
 // ══════════════════════════════════════════════════════════
-const PLACEHOLDER_PROJECTS = [
-  {
-    _id: 'p1', title: 'MahopFlex',
-    type: 'Mobile App', role: 'Mobile Developer', period: 'Dec 2025 – Jan 2026',
-    description: 'An offline food recipe finder app built with Flutter and SQLite. I handled the backend logic, database design, and data modeling. Works without internet. No WiFi? No problem.',
-    techStack: ['Flutter', 'SQLite', 'Offline Database'], liveUrl: '', repoUrl: 'https://github.com/Tsn168/Flutter_FInal_Project',
-  },
-  {
-    _id: 'p2', title: 'Survivalist Sorcerer',
-    type: 'Unity Game (C#)', role: 'Game Developer', period: 'Nov – Dec 2025',
-    description: 'A survival game where you fight off enemy waves as a sorcerer. I built the enemy wave spawning system, wave management logic, loading screen, and credit screen.',
-    techStack: ['Unity', 'C#', 'Wave System'], liveUrl: '', repoUrl: 'https://github.com/PhaySometh/SurvivalistSorcerer-TheMeshEscape',
-  },
-  {
-    _id: 'p3', title: 'This Portfolio',
-    type: 'Full-Stack Web App', role: 'Full-Stack Developer', period: '2025 – Present',
-    description: 'A production-ready portfolio with a custom CMS to manage projects, JWT authentication, and a React frontend. Very meta. Very full-stack.',
-    techStack: ['MongoDB', 'Express', 'React', 'Node.js', 'JWT', 'Tailwind'], liveUrl: '', repoUrl: 'https://github.com/TetElite/portfolio_project',
-  },
-];
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, onClick }) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <div
+      onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -592,18 +583,34 @@ function ProjectCard({ project }) {
         transform: hovered ? 'translateY(-5px)' : 'translateY(0)',
         transition: 'all 0.3s ease',
         display: 'flex', flexDirection: 'column',
+        cursor: 'pointer',
       }}
     >
       {/* Image area */}
       <div style={{
-        height: '170px',
-        background: 'linear-gradient(135deg, #0d0d1a 0%, #111130 100%)',
+        height: '180px',
+        background: '#0d0d1a',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         borderBottom: '1px solid rgba(0,245,255,0.08)',
         position: 'relative', overflow: 'hidden',
       }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(0,245,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.04) 1px,transparent 1px)', backgroundSize: '20px 20px' }} />
-        <span style={{ fontFamily: '"Fira Code", monospace', fontSize: '10px', color: 'rgba(0,245,255,0.3)', letterSpacing: '2px', position: 'relative', zIndex: 1 }}>[ {project.title.toUpperCase()} ]</span>
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(0,245,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.04) 1px,transparent 1px)', backgroundSize: '15px 15px' }} />
+        
+        {project.media ? (
+          <img 
+            src={project.mediaType === 'video' ? (project.screenshots ? project.screenshots[0] : '/photos/Unity_Technologies_logo.svg.png') : project.media} 
+            alt={project.title}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: hovered ? 1 : 0.7, transition: '0.4s ease' }}
+          />
+        ) : (
+          <span style={{ fontFamily: '"Fira Code", monospace', fontSize: '10px', color: 'rgba(0,245,255,0.3)', letterSpacing: '2px', position: 'relative', zIndex: 1 }}>[ {project.title.toUpperCase()} ]</span>
+        )}
+
+        {hovered && (
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,245,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontFamily: '"Press Start 2P", cursive', fontSize: '8px', color: 'var(--cyan)', textShadow: '0 0 8px rgba(0,245,255,0.8)' }}>[ VIEW DETAILS ]</span>
+          </div>
+        )}
       </div>
 
       <div style={{ padding: '22px', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -614,20 +621,142 @@ function ProjectCard({ project }) {
           {project.role} · {project.period}
         </p>
         <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: 'var(--text-dim)', lineHeight: 1.7, flex: 1, margin: 0 }}>
-          {project.description}
+          {project.description.slice(0, 100)}...
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-          {(project.techStack || []).map(t => <span key={t} className="tech-tag">{t}</span>)}
+          {(project.tags || []).slice(0, 3).map(t => <span key={t} className="tech-tag">{t}</span>)}
+          {project.tags?.length > 3 && <span className="tech-tag" style={{ opacity: 0.6 }}>+{project.tags.length - 3}</span>}
         </div>
-        <div style={{ display: 'flex', gap: '10px', marginTop: '6px', flexWrap: 'wrap' }}>
-          <button className="btn-pixel-sm" style={{ opacity: 0.6, cursor: 'not-allowed' }}>
-            <span>[Coming Soon]</span>
-          </button>
-          {project.repoUrl && (
-            <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="btn-pixel-ghost" style={{ fontFamily: '"Press Start 2P", cursive', fontSize: '8px', padding: '10px 16px' }} aria-label={`View code of ${project.title}`}>
-              {'</> Code'}
-            </a>
+      </div>
+    </div>
+  );
+}
+
+function ProjectModal({ project, onClose }) {
+  const [activeMedia, setActiveMedia] = useState(0); // 0 for video/main, 1+ for screenshots
+
+  if (!project) return null;
+
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) onClose();
+  };
+
+  return (
+    <div 
+      onClick={handleBackdropClick}
+      style={{
+        position: 'fixed', inset: 0, background: 'rgba(5, 5, 10, 0.95)', 
+        zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', 
+        padding: '20px', backdropFilter: 'blur(8px)'
+      }}
+    >
+      <div style={{
+        width: '100%', maxWidth: '900px', maxHeight: '90vh', background: 'var(--bg-body)',
+        border: '2px solid var(--cyan)', boxShadow: '0 0 50px rgba(0,245,255,0.15)',
+        position: 'relative', display: 'flex', flexDirection: 'column', overflow: 'hidden'
+      }}>
+        {/* Close Button */}
+        <button 
+          onClick={onClose}
+          style={{
+            position: 'absolute', top: '15px', right: '15px', zIndex: 10,
+            background: 'var(--bg-card)', border: '1px solid var(--cyan)', color: 'var(--cyan)',
+            padding: '8px 12px', cursor: 'pointer', fontFamily: '"Fira Code", monospace'
+          }}
+        >
+          X
+        </button>
+
+        <div style={{ overflowY: 'auto', flex: 1 }}>
+          {/* Media Header */}
+          <div style={{ width: '100%', aspectRatio: '16/9', background: '#000', position: 'relative' }}>
+            {project.mediaType === 'video' && activeMedia === 0 ? (
+              <video 
+                src={project.media} 
+                controls autoPlay muted autoFocus
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              />
+            ) : (
+              <img 
+                src={activeMedia === 0 ? project.media : project.screenshots[activeMedia - 1]} 
+                alt={project.title}
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              />
+            )}
+          </div>
+
+          {/* Screenshots Thumbnails */}
+          {project.screenshots?.length > 0 && (
+            <div style={{ 
+              display: 'flex', gap: '10px', padding: '15px', 
+              background: 'rgba(0,0,0,0.3)', overflowX: 'auto' 
+            }}>
+               <div 
+                onClick={() => setActiveMedia(0)}
+                style={{ 
+                  width: '80px', height: '45px', border: activeMedia === 0 ? '2px solid var(--cyan)' : '1px solid #333',
+                  cursor: 'pointer', overflow: 'hidden', flexShrink: 0, position: 'relative'
+                }}
+              >
+                {project.mediaType === 'video' ? (
+                   <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#222' }}>
+                      <i className="fas fa-play" style={{ color: 'var(--cyan)', fontSize: '10px' }}></i>
+                   </div>
+                ) : (
+                  <img src={project.media} alt="thumbnail" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                )}
+              </div>
+              {project.screenshots.map((s, idx) => (
+                <div 
+                  key={idx}
+                  onClick={() => setActiveMedia(idx + 1)}
+                  style={{ 
+                    width: '80px', height: '45px', border: activeMedia === idx + 1 ? '2px solid var(--cyan)' : '1px solid #333',
+                    cursor: 'pointer', overflow: 'hidden', flexShrink: 0
+                  }}
+                >
+                  <img src={s} alt={`screenshot ${idx}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+              ))}
+            </div>
           )}
+
+          {/* Project Details */}
+          <div style={{ padding: '32px' }}>
+            <div style={{ marginBottom: '24px' }}>
+              <div style={{ fontFamily: '"Fira Code", monospace', fontSize: '12px', color: 'var(--cyan)', marginBottom: '4px' }}>
+                {project.type} // {project.period}
+              </div>
+              <h2 style={{ fontFamily: '"Press Start 2P", cursive', fontSize: '18px', color: 'var(--text)', margin: 0 }}>
+                {project.title}
+              </h2>
+              <div style={{ color: 'var(--cyan-dim)', fontSize: '13px', marginTop: '4px' }}>{project.subtitle}</div>
+            </div>
+
+            <p style={{ 
+              fontFamily: 'Inter, sans-serif', fontSize: '15px', color: 'var(--text-dim)', 
+              lineHeight: 1.8, marginBottom: '24px', whiteSpace: 'pre-wrap'
+            }}>
+              {project.description}
+            </p>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
+              {(project.tags || []).map(t => <span key={t} className="tech-tag">{t}</span>)}
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px' }}>
+              {project.github && (
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-pixel">
+                  <span>GITHUB_REPO</span>
+                </a>
+              )}
+              {project.live && (
+                <a href={project.live} target="_blank" rel="noopener noreferrer" className="btn-pixel">
+                  <span>LIVE_DEMO</span>
+                </a>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -637,15 +766,12 @@ function ProjectCard({ project }) {
 function ProjectsSection() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
-    projectService.getProjects()
-      .then(data => {
-        // If DB is empty, use the placeholders with real content
-        setProjects(data?.length ? data : PLACEHOLDER_PROJECTS);
-      })
-      .catch(() => setProjects(PLACEHOLDER_PROJECTS))
-      .finally(() => setLoading(false));
+    // We prioritize the local high-fidelity data
+    setProjects(projectsData);
+    setLoading(false);
   }, []);
 
   return (
@@ -660,13 +786,23 @@ function ProjectsSection() {
           <span style={{ fontFamily: '"Fira Code", monospace', color: 'var(--text-dim)', fontSize: '13px' }}>Loading quests...</span>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
           {projects.map((project, i) => (
-            <RevealSection key={project._id || i} delay={i * 0.1}>
-              <ProjectCard project={project} />
+            <RevealSection key={project.id || i} delay={i * 0.1}>
+              <ProjectCard 
+                project={project} 
+                onClick={() => setSelectedProject(project)} 
+              />
             </RevealSection>
           ))}
         </div>
+      )}
+
+      {selectedProject && (
+        <ProjectModal 
+          project={selectedProject} 
+          onClose={() => setSelectedProject(null)} 
+        />
       )}
     </section>
   );
