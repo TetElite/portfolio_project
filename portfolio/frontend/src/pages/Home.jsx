@@ -7,7 +7,8 @@ import toast from 'react-hot-toast';
 // ─── Typing Animation Hook ──────────────────────────────
 const PHRASES = [
   'Full-Stack Developer',
-  'Mobile Developer',
+  'Next.js & React Expert',
+  'Mobile App Developer',
   'Game Dev (sometimes)',
   'Still Compiling...',
 ];
@@ -333,52 +334,42 @@ function AboutSection() {
 // ══════════════════════════════════════════════════════════
 const SKILL_GROUPS = [
   {
-    category: 'Frontend',
-    icon: '🖥',
+    category: 'Full-Stack',
+    icon: '🚀',
     skills: [
-      { name: 'HTML', xp: 80, icon: '/photos/html.png' },
-      { name: 'CSS', xp: 80, icon: '/photos/css.png' },
-      { name: 'React', xp: 70, icon: '/photos/react.png' },
-      { name: 'Tailwind CSS', xp: 70, icon: '/photos/tailwind.png' },
+      { name: 'Next.js 15', icon: '/photos/react.png' },
+      { name: 'React 19', icon: '/photos/react.png' },
+      { name: 'TypeScript', icon: '/photos/javascript.png' },
+      { name: 'Tailwind v4', icon: '/photos/tailwind.png' },
     ],
   },
   {
-    category: 'Backend',
+    category: 'Backend & DB',
     icon: '⚙',
     skills: [
-      { name: 'Node.js', xp: 70, icon: '/photos/node.jpg' },
-      { name: 'Express', xp: 70, icon: '/photos/express.png' },
-      { name: 'SQL', xp: 60, icon: '/photos/pngimg.com - mysql_PNG9.png' },
-      { name: 'MongoDB', xp: 60, icon: '/photos/mongodb-atlas-google-cloud-partnership-nosql-databases-integrations-2.jpg' },
+      { name: 'Node.js', icon: '/photos/node.jpg' },
+      { name: 'MongoDB', icon: '/photos/mongodb-atlas-google-cloud-partnership-nosql-databases-integrations-2.jpg' },
+      { name: 'NextAuth v5', icon: '/photos/react.png' },
+      { name: 'REST APIs', icon: '/photos/express.png' },
     ],
   },
   {
     category: 'Mobile & Game',
     icon: '🎮',
     skills: [
-      { name: 'Flutter', xp: 80, icon: '/photos/flutter-logo-sharing.png' },
-      { name: 'Unity (C#)', xp: 70, icon: '/photos/unity.png' },
-      { name: 'Lua / PICO-8', xp: 50, icon: '/photos/lua.png' },
+      { name: 'Flutter', icon: '/photos/flutter-logo-sharing.png' },
+      { name: 'Dart / SQLite', icon: '/photos/sql.png' },
+      { name: 'Unity (C#)', icon: '/photos/unity.png' },
     ],
   },
   {
     category: 'Languages',
     icon: '💻',
     skills: [
-      { name: 'C / C++', xp: 80, icon: '/photos/ISO_C++_Logo.svg.png' },
-      { name: 'Python', xp: 70, icon: '/photos/pythoned.png' },
-      { name: 'JavaScript', xp: 70, icon: '/photos/javascript.png' },
-      { name: 'Java OOP', xp: 60, icon: '/photos/java.png' },
-      { name: 'C#', xp: 70, icon: '/photos/csharp-logo-265a149e.svg' },
-    ],
-  },
-  {
-    category: 'Design & Tools',
-    icon: '⚒',
-    skills: [
-      { name: 'Figma', xp: 70, icon: '/photos/Figma.png' },
-      { name: 'Git / GitHub', xp: 80, icon: '/photos/git.png' },
-      { name: 'Canva', xp: 60, icon: '/photos/canva.png' },
+      { name: 'C / C++', icon: '/photos/ISO_C++_Logo.svg.png' },
+      { name: 'Python', icon: '/photos/pythoned.png' },
+      { name: 'JavaScript', icon: '/photos/javascript.png' },
+      { name: 'C#', icon: '/photos/csharp-logo-265a149e.svg' },
     ],
   },
 ];
