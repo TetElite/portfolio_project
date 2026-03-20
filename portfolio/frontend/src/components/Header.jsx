@@ -127,24 +127,10 @@ function Header() {
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              fontFamily: '"Press Start 2P", cursive',
-              fontSize: '11px',
-              color: 'var(--cyan)',
-              textShadow: '0 0 12px rgba(0,245,255,0.7)',
-              letterSpacing: '1px',
               padding: 0,
             }}
           >
-            [TET]<span style={{ color: 'var(--text-dim)' }}>.</span>ELITE
-            <span
-              style={{
-                display: 'inline-block',
-                animation: 'blink 1s step-end infinite',
-                color: 'var(--cyan)',
-              }}
-            >
-              ▌
-            </span>
+            <span style={{ display: 'inline-block', width: '12px', height: '12px', background: 'var(--cyan)', borderRadius: '2px' }} />
           </button>
 
           {/* Desktop nav links */}

@@ -45,9 +45,8 @@ export default function Contact() {
   return (
     <main style={{ maxWidth: '760px', margin: '0 auto', padding: '64px 24px' }}>
       {/* Section header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '12px' }}>
-        <h1 className="section-tag">[ SEND MESSAGE ]</h1>
-        <div className="section-line" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '10px' }}>
+        <h2 className="section-tag">[ SEND MESSAGE ]</h2>
       </div>
 
       {/* Flavor text */}

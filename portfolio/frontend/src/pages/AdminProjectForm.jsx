@@ -48,7 +48,6 @@ export default function AdminProjectForm() {
         <h1 className="section-tag">
           {isEditMode ? '[ EDIT QUEST ]' : '[ NEW QUEST ]'}
         </h1>
-        <div className="section-line" />
       </div>
       <p style={{ fontFamily: '"Fira Code", monospace', fontSize: '12px', color: 'var(--text-dim)', marginBottom: '36px' }}>
         {isEditMode ? '// Modify the quest details below' : '// Define a new quest to add to your log'}

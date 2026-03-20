@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import projectService from '../services/projectService';
 
 const PLACEHOLDER_PROJECTS = [
@@ -31,6 +31,10 @@ const PLACEHOLDER_PROJECTS = [
 function ProjectCard({ project, delay }) {
   const [visible, setVisible] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const videoRef = useRef(null);
+  const videoSrcCandidate = project?.media && project.media.startsWith('/photos/')
+    ? project.media.replace('/photos/', '/video/')
+    : project?.media;
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), delay);
@@ -49,6 +53,9 @@ function ProjectCard({ project, delay }) {
         transition: 'all 0.3s ease',
         display: 'flex',
         flexDirection: 'column',
+        width: '320px',
+        height: '420px',
+        overflow: 'hidden',
         opacity: visible ? 1 : 0,
         transitionDelay: visible ? '0s' : `${delay}ms`,
       }}
@@ -72,16 +79,29 @@ function ProjectCard({ project, delay }) {
           backgroundImage: 'linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px)',
           backgroundSize: '20px 20px',
         }} />
-        <span style={{
-          fontFamily: '"Fira Code", monospace',
-          fontSize: '11px',
-          color: 'rgba(0,245,255,0.35)',
-          letterSpacing: '2px',
-          position: 'relative',
-          zIndex: 1,
-        }}>
-          [ PROJECT SCREENSHOT ]
-        </span>
+        {project.media && project.mediaType === 'video' ? (
+          <video
+            ref={videoRef}
+            src={videoSrcCandidate}
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            onError={(e) => { if (project.media) e.currentTarget.src = project.media; }}
+          />
+        ) : (
+          <span style={{
+            fontFamily: '"Fira Code", monospace',
+            fontSize: '11px',
+            color: 'rgba(0,245,255,0.35)',
+            letterSpacing: '2px',
+            position: 'relative',
+            zIndex: 1,
+          }}>
+            [ PROJECT SCREENSHOT ]
+          </span>
+        )}
       </div>
 
       {/* Card body */}
@@ -162,8 +182,8 @@ export default function Projects() {
     <main style={{ maxWidth: '1152px', margin: '0 auto', padding: '64px 24px' }}>
       {/* Section header */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '12px' }}>
-        <h1 className="section-tag">[ QUEST LOG ]</h1>
-        <div className="section-line" />
+          <h1 className="section-tag">[ QUEST LOG ]</h1>
+          {/* <div className="section-line" /> */}
       </div>
       <p style={{
         fontFamily: '"Fira Code", monospace',

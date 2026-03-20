@@ -14,7 +14,7 @@ function Footer() {
         padding: '48px 24px 36px',
       }}
     >
-      <div className="pixel-divider" style={{ maxWidth: '1152px', margin: '0 auto 36px' }} />
+      {/* dividers removed for clean section endings */}
 
       <div
         style={{
@@ -27,19 +27,7 @@ function Footer() {
           textAlign: 'center',
         }}
       >
-        {/* Logo */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          style={{
-            background: 'none', border: 'none', cursor: 'pointer',
-            fontFamily: '"Press Start 2P", cursive',
-            fontSize: '13px',
-            color: 'var(--cyan)',
-            padding: 0,
-          }}
-        >
-          Tet Elite
-        </button>
+        {/* Logo removed from visible footer per request */}
 
         {/* Anchor nav */}
         <nav style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center' }} aria-label="Footer navigation">

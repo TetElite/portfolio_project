@@ -75,7 +75,7 @@ export default function AdminLogin() {
           }}>
             ADMIN LOGIN
           </h1>
-          <div className="pixel-divider" style={{ marginTop: '20px' }} />
+          {/* divider removed for clean section ending */}
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>

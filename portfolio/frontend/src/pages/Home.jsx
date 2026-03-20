@@ -77,37 +77,7 @@ function RevealSection({ children, delay = 0, style = {} }) {
   );
 }
 
-// ─── Floating Particles ─────────────────────────────────
-function Particles() {
-  const [particles] = useState(() => Array.from({ length: 22 }, (_, i) => ({
-    id: i,
-    left: `${Math.random() * 100}%`,
-    size: Math.random() * 2 + 1,
-    dur: `${Math.random() * 12 + 8}s`,
-    delay: `${Math.random() * 8}s`,
-    opacity: Math.random() * 0.5 + 0.1,
-  })));
-
-  return (
-    <div aria-hidden="true" style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0, pointerEvents: 'none' }}>
-      {particles.map(p => (
-        <div
-          key={p.id}
-          className="particle"
-          style={{
-            left: p.left,
-            bottom: '-10px',
-            width: p.size,
-            height: p.size,
-            animationDuration: p.dur,
-            animationDelay: p.delay,
-            opacity: p.opacity,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
+// Particles moved to a shared component (components/Particles.jsx)
 
 // ─── Section Header ──────────────────────────────────────
 function SectionHeader({ tag, sub }) {
@@ -115,7 +85,6 @@ function SectionHeader({ tag, sub }) {
     <div style={{ marginBottom: '48px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '10px' }}>
         <h2 className="section-tag">{tag}</h2>
-        <div className="section-line" />
       </div>
       {sub && (
         <p style={{ fontFamily: '"Fira Code", monospace', fontSize: '13px', color: 'var(--text-dim)' }}>
@@ -128,7 +97,7 @@ function SectionHeader({ tag, sub }) {
 
 // ─── Pixel Divider ───────────────────────────────────────
 function PixelDivider() {
-  return <div className="pixel-divider" style={{ margin: '0' }} />;
+  return null;
 }
 
 // ══════════════════════════════════════════════════════════
@@ -151,15 +120,7 @@ function HeroSection() {
       className="scanlines"
       style={{ position: 'relative', minHeight: 'calc(100vh - 64px)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: '60px 24px' }}
     >
-      <Particles />
-
-      {/* ASCII corner decorations */}
-      <div aria-hidden="true" className="hidden lg:block" style={{ position: 'absolute', top: '80px', right: '60px', fontFamily: '"Fira Code", monospace', fontSize: '11px', color: 'rgba(0,245,255,0.2)', lineHeight: 1.6, zIndex: 2, pointerEvents: 'none' }}>
-        ┌────────────────┐<br />│  SYSTEM ONLINE │<br />│  PORT: 3000    │<br />│  STATUS: ✓ OK  │<br />└────────────────┘
-      </div>
-      <div aria-hidden="true" className="hidden lg:block" style={{ position: 'absolute', bottom: '60px', left: '60px', fontFamily: '"Fira Code", monospace', fontSize: '10px', color: 'rgba(0,245,255,0.16)', lineHeight: 1.7, zIndex: 2, pointerEvents: 'none' }}>
-        &gt; git clone repo<br />&gt; npm install<br />&gt; npm run dev<br />&gt; <span style={{ display: 'inline-block', width: '8px', height: '12px', background: 'rgba(0,245,255,0.35)', verticalAlign: 'middle', animation: 'blink 1s step-end infinite' }} />
-      </div>
+      {/* Hero — particles are rendered globally by Layout */}
 
       <div style={{ position: 'relative', zIndex: 2, maxWidth: '760px', width: '100%', textAlign: 'center' }}>
         {/* Status badge */}
@@ -172,10 +133,7 @@ function HeroSection() {
           &gt; Hello, World! I&apos;m
         </p>
 
-        {/* Name */}
-        <h1 className="glow-cyan" style={{ fontFamily: '"Press Start 2P", cursive', fontSize: 'clamp(22px,5vw,50px)', letterSpacing: '4px', lineHeight: 1.3, marginBottom: '24px', ...fadeIn(0.2) }}>
-          Tet Elite
-        </h1>
+        {/* Name removed from visible heading as requested */}
 
         {/* Typing */}
         <div style={{ fontFamily: '"Fira Code", monospace', fontSize: 'clamp(13px,2.5vw,20px)', color: 'var(--text)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', marginBottom: '28px', ...fadeIn(0.3) }}>
@@ -335,17 +293,18 @@ function AboutSection() {
 const SKILL_GROUPS = [
   {
     category: 'Full-Stack',
-    icon: '🚀',
+    icon: '/photos/react.png',
     skills: [
       { name: 'Next.js 15', icon: '/photos/react.png' },
       { name: 'React 19', icon: '/photos/react.png' },
       { name: 'TypeScript', icon: '/photos/javascript.png' },
       { name: 'Tailwind v4', icon: '/photos/tailwind.png' },
+      { name: 'GitHub', icon: '/photos/GitHub-logo.png' },
     ],
   },
   {
     category: 'Backend & DB',
-    icon: '⚙',
+    icon: '/photos/node.jpg',
     skills: [
       { name: 'Node.js', icon: '/photos/node.jpg' },
       { name: 'MongoDB', icon: '/photos/mongodb-atlas-google-cloud-partnership-nosql-databases-integrations-2.jpg' },
@@ -355,7 +314,7 @@ const SKILL_GROUPS = [
   },
   {
     category: 'Mobile & Game',
-    icon: '🎮',
+    icon: '/photos/flutter-logo-sharing.png',
     skills: [
       { name: 'Flutter', icon: '/photos/flutter-logo-sharing.png' },
       { name: 'Dart / SQLite', icon: '/photos/sql.png' },
@@ -363,8 +322,15 @@ const SKILL_GROUPS = [
     ],
   },
   {
+    category: 'Design & Tools',
+    icon: '/photos/Figma.png',
+    skills: [
+      { name: 'Figma', icon: '/photos/Figma.png' },
+    ],
+  },
+  {
     category: 'Languages',
-    icon: '💻',
+    icon: '/photos/javascript.png',
     skills: [
       { name: 'C / C++', icon: '/photos/ISO_C++_Logo.svg.png' },
       { name: 'Python', icon: '/photos/pythoned.png' },
@@ -382,39 +348,37 @@ function SkillCard({ skill }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? 'rgba(0,245,255,0.08)' : 'var(--bg-card)',
-        border: hovered ? '2px solid var(--cyan)' : '1px solid rgba(0,245,255,0.15)',
-        padding: '12px 16px',
+        background: hovered ? 'rgba(0,245,255,0.04)' : 'var(--bg-card)',
+        border: hovered ? '2px solid var(--cyan)' : '1px solid rgba(0,245,255,0.12)',
+        width: '140px',
+        height: '110px',
+        padding: '12px',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
-        gap: '12px',
+        justifyContent: 'center',
+        gap: '8px',
         transition: 'all 0.25s ease',
-        boxShadow: hovered ? '0 0 15px rgba(0,245,255,0.1)' : 'none',
+        boxShadow: hovered ? '0 0 18px rgba(0,245,255,0.08)' : 'none',
         cursor: 'default',
         position: 'relative',
         overflow: 'hidden'
       }}
     >
-      <div style={{ 
-        width: '28px', height: '28px', 
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: 'rgba(0,0,0,0.2)', 
-        border: '1px solid rgba(0,245,255,0.1)'
-      }}>
+      <div style={{ width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <img
           src={skill.icon}
-          style={{ width: '18px', height: '18px', objectFit: 'contain', filter: hovered ? 'none' : 'grayscale(0.3)' }}
+          style={{ width: '36px', height: '36px', objectFit: 'contain', filter: hovered ? 'none' : 'grayscale(0.2)' }}
           alt=""
-          onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+          onError={(e) => { e.target.style.display = 'none'; }}
         />
-        <span style={{ fontSize: '14px', display: 'none' }}>{skill.icon}</span>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <span style={{ 
-          fontFamily: '"Fira Code", monospace', fontSize: '13px', 
+          fontFamily: '"Fira Code", monospace', fontSize: '14px', 
           color: hovered ? 'var(--cyan)' : 'var(--text)', 
-          fontWeight: 500,
+          fontWeight: 600,
           transition: 'color 0.25s ease' 
         }}>
           {skill.name}
@@ -456,7 +420,10 @@ function SkillsSection() {
                   display: 'flex', alignItems: 'center', gap: '10px',
                   borderLeft: '3px solid var(--cyan)'
                 }}>
-                  <span>{group.icon}</span> {group.category.toUpperCase()}
+                  {group.icon ? (
+                    <img src={group.icon} alt="" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+                  ) : null}
+                  {group.category.toUpperCase()}
                 </div>
                 {group.skills.map((skill) => (
                   <SkillCard key={skill.name} skill={skill} />
@@ -561,6 +528,10 @@ function VolunteeringSection() {
 
 function ProjectCard({ project, onClick }) {
   const [hovered, setHovered] = useState(false);
+  const videoRef = useRef(null);
+  const videoSrcCandidate = project?.media && project.media.startsWith('/photos/')
+    ? project.media.replace('/photos/', '/video/')
+    : project?.media;
 
   return (
     <div
@@ -575,9 +546,12 @@ function ProjectCard({ project, onClick }) {
         transition: 'all 0.3s ease',
         display: 'flex', flexDirection: 'column',
         cursor: 'pointer',
+        width: '320px',
+        height: '420px',
+        overflow: 'hidden',
       }}
     >
-      {/* Image area */}
+      {/* Image / Video area */}
       <div style={{
         height: '180px',
         background: '#0d0d1a',
@@ -586,33 +560,46 @@ function ProjectCard({ project, onClick }) {
         position: 'relative', overflow: 'hidden',
       }}>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(0,245,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.04) 1px,transparent 1px)', backgroundSize: '15px 15px' }} />
-        
+
         {project.media ? (
-          <img 
-            src={project.mediaType === 'video' ? (project.screenshots ? project.screenshots[0] : '/photos/Unity_Technologies_logo.svg.png') : project.media} 
-            alt={project.title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: hovered ? 1 : 0.7, transition: '0.4s ease' }}
-          />
+          project.mediaType === 'video' ? (
+            <video
+              ref={videoRef}
+              src={videoSrcCandidate}
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              onError={(e) => { if (project.media) e.currentTarget.src = project.media; }}
+            />
+          ) : (
+            <img
+              src={project.media}
+              alt={project.title}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: hovered ? 1 : 0.9, transition: '0.4s ease' }}
+            />
+          )
         ) : (
           <span style={{ fontFamily: '"Fira Code", monospace', fontSize: '10px', color: 'rgba(0,245,255,0.3)', letterSpacing: '2px', position: 'relative', zIndex: 1 }}>[ {project.title.toUpperCase()} ]</span>
         )}
 
         {hovered && (
           <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,245,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ fontFamily: '"Press Start 2P", cursive', fontSize: '8px', color: 'var(--cyan)', textShadow: '0 0 8px rgba(0,245,255,0.8)' }}>[ VIEW DETAILS ]</span>
+            <span style={{ fontFamily: '"Press Start 2P", cursive', fontSize: '10px', color: 'var(--cyan)', textShadow: '0 0 8px rgba(0,245,255,0.8)' }}>[ VIEW DETAILS ]</span>
           </div>
         )}
       </div>
 
-      <div style={{ padding: '22px', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        <h3 style={{ fontFamily: '"Press Start 2P", cursive', fontSize: '10px', color: 'var(--cyan)', lineHeight: 1.6, margin: 0 }}>
+      <div style={{ padding: '22px', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px', overflow: 'hidden' }}>
+        <h3 style={{ fontFamily: '"Press Start 2P", cursive', fontSize: '11px', color: 'var(--cyan)', lineHeight: 1.6, margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {project.title}
         </h3>
         <p style={{ fontFamily: '"Fira Code", monospace', fontSize: '11px', color: 'var(--cyan-dim)', margin: 0 }}>
           {project.role} · {project.period}
         </p>
-        <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: 'var(--text-dim)', lineHeight: 1.7, flex: 1, margin: 0 }}>
-          {project.description.slice(0, 100)}...
+        <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '13px', color: 'var(--text-dim)', lineHeight: 1.7, flex: 1, margin: 0, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          {project.description.slice(0, 120)}...
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
           {(project.tags || []).slice(0, 3).map(t => <span key={t} className="tech-tag">{t}</span>)}
@@ -662,11 +649,17 @@ function ProjectModal({ project, onClose }) {
           {/* Media Header */}
           <div style={{ width: '100%', aspectRatio: '16/9', background: '#000', position: 'relative' }}>
             {project.mediaType === 'video' && activeMedia === 0 ? (
-              <video 
-                src={project.media} 
-                controls autoPlay muted autoFocus
+              <video
+                controls
+                autoPlay
+                muted
+                playsInline
+                preload="metadata"
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-              />
+              >
+                <source src={project.media} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             ) : (
               <img 
                 src={activeMedia === 0 ? project.media : project.screenshots[activeMedia - 1]} 

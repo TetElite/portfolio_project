@@ -32,7 +32,7 @@ export const projects = [
     tags: ["Flutter", "SQLite", "Offline DB", "UI Design"],
     description:
       "A fully offline food recipe finder built with Flutter and SQLite. Handled backend logic, database design, and data modeling. Designed for areas with limited connectivity, ensuring users can access culinary inspiration anytime, anywhere.",
-    media: "/photos/mahopdemo.mov",
+    media: "/photos/mahopdemo.mp4",
     mediaType: "video",
     screenshots: [
       "/photos/mahop1.png",
@@ -107,7 +107,7 @@ export const projects = [
       "Smooth animations, a working contact form via EmailJS, " +
       "and zero backend needed. " +
       "Yes, it's showing you itself right now. Very meta.",
-    media: "/photos/portfolio-demo.gif",
+    media: "/photos/Portfolio.png",
     mediaType: "gif",
     github: null,
     live: null,

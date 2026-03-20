@@ -42,7 +42,7 @@ export default function AdminDashboard() {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <h1 className="section-tag">[ ADMIN PANEL ]</h1>
-            <div className="section-line" style={{ maxWidth: '200px' }} />
+            {/* decorative divider removed */}
           </div>
           <p style={{ fontFamily: '"Fira Code", monospace', fontSize: '12px', color: 'var(--text-dim)', marginTop: '6px' }}>
             // Manage your quest log entries
