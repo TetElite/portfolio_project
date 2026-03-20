@@ -12,8 +12,15 @@ export const projects = [
       "Handled backend logic, database design, and data modeling — " +
       "plus contributed to UI and overall app structure. " +
       "Works without internet. No WiFi? No problem.",
-    media: "/photos/mahopflex-demo.gif",
-    mediaType: "gif",
+    media: "/photos/mahopdemo.mov",
+    mediaType: "video",
+    screenshots: [
+      "/photos/mahop1.png",
+      "/photos/mahop2.png",
+      "/photos/mahop3.png",
+      "/photos/mahop4.png",
+      "/photos/mahop5.png"
+    ],
     github: "https://github.com/Tsn168/Flutter_FInal_Project",
     live: null,
   },
@@ -32,7 +39,7 @@ export const projects = [
       "both Khmer and English — into a fully structured prescription. " +
       "I was the Bug Fix Lead for the team of 6, ensuring the Khmer OCR " +
       "output was correctly processed and formatted by the LLM.",
-    media: "/photos/Wood.jpg",
+    media: "/photos/flutter-logo-sharing.png",
     mediaType: "image",
     github: null,
     live: null,
