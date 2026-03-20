@@ -128,14 +128,14 @@ function Header() {
               border: 'none',
               cursor: 'pointer',
               fontFamily: '"Press Start 2P", cursive',
-              fontSize: '13px',
+              fontSize: '11px',
               color: 'var(--cyan)',
               textShadow: '0 0 12px rgba(0,245,255,0.7)',
               letterSpacing: '1px',
               padding: 0,
             }}
           >
-            [YN]<span style={{ color: 'var(--text-dim)' }}>.</span>dev
+            [TET]<span style={{ color: 'var(--text-dim)' }}>.</span>ELITE
             <span
               style={{
                 display: 'inline-block',

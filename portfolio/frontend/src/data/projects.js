@@ -39,8 +39,15 @@ export const projects = [
       "both Khmer and English — into a fully structured prescription. " +
       "I was the Bug Fix Lead for the team of 6, ensuring the Khmer OCR " +
       "output was correctly processed and formatted by the LLM.",
-    media: "/photos/flutter-logo-sharing.png",
-    mediaType: "image",
+    media: "/photos/DasternDemo.mp4",
+    mediaType: "video",
+    screenshots: [
+      "/photos/Dastern_20260320_134810_com.example.das_tern_mcp.jpg",
+      "/photos/Dastern_20260320_134817_com.example.das_tern_mcp.jpg",
+      "/photos/Dastern_20260320_134822_com.example.das_tern_mcp.jpg",
+      "/photos/Dastern_20260320_134826_com.example.das_tern_mcp.jpg",
+      "/photos/Dastern_20260320_134840_com.example.das_tern_mcp.jpg"
+    ],
     github: null,
     live: null,
   },

@@ -740,6 +740,21 @@ function ProjectModal({ project, onClose }) {
               {project.description}
             </p>
 
+            {project.title === "This Portfolio" && (
+              <div style={{ 
+                background: 'rgba(0,245,255,0.05)', border: '1px solid rgba(0,245,255,0.2)', 
+                padding: '16px', marginBottom: '24px', fontFamily: '"Fira Code", monospace'
+              }}>
+                <div style={{ color: 'var(--cyan)', fontSize: '11px', marginBottom: '8px' }}>[ SELF_RECORD_LOG ]</div>
+                <div style={{ color: 'var(--text-dim)', fontSize: '13px', lineHeight: 1.6 }}>
+                  {'>'} Initialized with Vite & React 19<br/>
+                  {'>'} Integrated EmailJS for contact logic<br/>
+                  {'>'} Custom CSS for retro pixel aesthetic<br/>
+                  {'>'} Responsive design for mobile/desktop
+                </div>
+              </div>
+            )}
+
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
               {(project.tags || []).map(t => <span key={t} className="tech-tag">{t}</span>)}
             </div>
