@@ -9,6 +9,10 @@ node_modules/
 *.mov
 *.avi
 *.mkv
+portfolio/frontend/public/photos/*.mp4
+portfolio/frontend/public/photos/*.mov
+portfolio/Photo/*.mp4
+portfolio/Photo/*.mov
 
 # Build outputs
 dist/
